@@ -1,0 +1,362 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  image?: string;
+  robots?: string;
+}
+
+const {
+  title = "Clyde Decking | Decking & Fencing Services Glasgow & Central Belt",
+  description = "Expert decking & fencing services in Glasgow, Edinburgh, Stirling, Ayrshire & Scotland's Central Belt. Composite & wooden decking, fencing installation & repairs. Free quotes available.",
+  canonical = "https://clydedecking.netlify.app/",
+  image = "https://clydedecking.netlify.app/cds - Edited.png",
+  robots = "index, follow",
+} = Astro.props;
+
+const currentUrl = canonical || Astro.url.href;
+const ogImage = image || "https://clydedecking.netlify.app/cds - Edited.png";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/cds - Edited.png" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <!-- Basic Meta Tags -->
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content="Clyde Decking" />
+    <meta name="robots" content={robots} />
+    <meta name="language" content="English" />
+    <meta name="geo.region" content="GB-SCT" />
+    <meta name="geo.placename" content="Glasgow, Scotland" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={currentUrl} />
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/cds - Edited.png" />
+    <link rel="alternate icon" href="/cds - Edited.png" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/cds - Edited.png" as="image" type="image/png">
+    
+    <!-- Google Fonts with font-display: swap for better performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Google tag (gtag.js) -->
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-9JPKLK381L');
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9JPKLK381L" is:inline></script>
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image:width" content="800" />
+    <meta property="og:image:height" content="800" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={currentUrl} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:alt" content="Clyde Decking Solutions Ltd Logo" />
+    <meta property="og:site_name" content="Clyde Decking" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:image:alt" content="Clyde Decking Solutions Ltd Logo" />
+    
+    <!-- Additional meta tags for better social sharing -->
+    <meta name="theme-color" content="#1e40af" />
+    <meta name="msapplication-TileColor" content="#1e40af" />
+    <meta name="msapplication-TileImage" content="https://clydedecking.netlify.app/cds - Edited.png" />
+    
+    <!-- Enhanced JSON-LD Schema for LocalBusiness -->
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org",
+        "@type": ["LocalBusiness", "HomeImprovementContractor", "ContractorService"],
+        "name": "Clyde Decking Solutions Ltd",
+        "alternateName": "Clyde Decking & Fencing",
+        "description": "Expert decking & fencing services in Glasgow, Edinburgh, Stirling, Ayrshire & Scotland's Central Belt. Composite & wooden decking, fencing installation & repairs. Free quotes available.",
+        "url": "https://clydedecking.netlify.app/",
+        "telephone": "+447949912201",
+        "email": "clydedeckingsolutionsltd@gmail.com",
+        "foundingDate": "2020",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Glasgow",
+          "addressRegion": "Scotland",
+          "addressCountry": "Scotland",
+          "postalCode": "G1"
+        },
+        "geo": {
+          "@type": "GeoCoordinates",
+          "latitude": "55.8642",
+          "longitude": "-4.2518"
+        },
+        "areaServed": [
+          {
+            "@type": "City",
+            "name": "Glasgow",
+            "containedInPlace": {
+              "@type": "AdministrativeArea",
+              "name": "Scotland"
+            }
+          },
+          {
+            "@type": "City", 
+            "name": "Edinburgh",
+            "containedInPlace": {
+              "@type": "AdministrativeArea",
+              "name": "Scotland"
+            }
+          },
+          {
+            "@type": "City",
+            "name": "Stirling",
+            "containedInPlace": {
+              "@type": "AdministrativeArea",
+              "name": "Scotland"
+            }
+          },
+          {
+            "@type": "City",
+            "name": "Falkirk",
+            "containedInPlace": {
+              "@type": "AdministrativeArea",
+              "name": "Scotland"
+            }
+          },
+          {
+            "@type": "City",
+            "name": "Livingston",
+            "containedInPlace": {
+              "@type": "AdministrativeArea",
+              "name": "Scotland"
+            }
+          },
+          {
+            "@type": "AdministrativeArea",
+            "name": "Ayrshire",
+            "containedInPlace": {
+              "@type": "Country",
+              "name": "Scotland"
+            }
+          },
+          {
+            "@type": "AdministrativeArea",
+            "name": "Scotland Central Belt",
+            "containedInPlace": {
+              "@type": "Country",
+              "name": "Scotland"
+            }
+          }
+        ],
+        "serviceType": [
+          "Composite Decking",
+          "Wooden Decking",
+          "Fencing Installation",
+          "Fence Repairs",
+          "Custom Outdoor Structures",
+          "Custom Decking Solutions",
+          "Decking Installation",
+          "Fencing Contractors"
+        ],
+        "openingHours": [
+          "Mo 08:00-18:00",
+          "Tu 08:00-18:00", 
+          "We 08:00-18:00",
+          "Th 08:00-18:00",
+          "Fr 08:00-18:00",
+          "Sa 09:00-16:00",
+          "Su 10:00-15:00"
+        ],
+        "priceRange": "$$",
+        "image": [
+          "https://clydedecking.netlify.app/cds - Edited.png",
+          "https://clydedecking.netlify.app/gallery/deck1.jpg",
+          "https://clydedecking.netlify.app/gallery/deck2.jpg",
+          "https://clydedecking.netlify.app/gallery/Fence1.jpg"
+        ],
+        "logo": "https://clydedecking.netlify.app/cds - Edited.png",
+        "sameAs": [
+          "https://www.facebook.com/people/Clyde-Decking/100095203176792/?_rdr"
+        ],
+        "hasCredential": [
+          {
+            "@type": "EducationalOccupationalCredential",
+            "name": "Public Liability Insurance",
+            "description": "Fully insured for all decking and fencing work",
+            "credentialCategory": "insurance",
+            "recognizedBy": {
+              "@type": "Organization",
+              "name": "Insurance Provider"
+            }
+          }
+        ],
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Professional Decking & Fencing Services",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Composite Decking",
+                "description": "High-quality composite decking installation and maintenance",
+                "provider": {
+                  "@type": "LocalBusiness",
+                  "name": "Clyde Decking Solutions Ltd"
+                }
+              },
+              "priceRange": "£80-120 per square meter"
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Wooden Decking",
+                "description": "Professional wooden decking installation and repairs",
+                "provider": {
+                  "@type": "LocalBusiness", 
+                  "name": "Clyde Decking Solutions Ltd"
+                }
+              },
+              "priceRange": "£60-100 per square meter"
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Fencing Installation",
+                "description": "Expert fencing installation and repair services",
+                "provider": {
+                  "@type": "LocalBusiness",
+                  "name": "Clyde Decking Solutions Ltd"
+                }
+              },
+              "priceRange": "£40-80 per linear meter"
+            },
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Service",
+                "name": "Custom Outdoor Structures",
+                "description": "Bespoke outdoor structures and joinery work",
+                "provider": {
+                  "@type": "LocalBusiness",
+                  "name": "Clyde Decking Solutions Ltd"
+                }
+              },
+              "priceRange": "Quote on request"
+            }
+          ]
+        },
+        "employee": {
+          "@type": "Person",
+          "name": "Clyde Decking Team",
+          "jobTitle": "Decking & Fencing Specialists",
+          "description": "Professional decking and fencing contractors with years of experience"
+        },
+        "aggregateRating": {
+          "@type": "AggregateRating",
+          "ratingValue": "5.0",
+          "reviewCount": "15",
+          "bestRating": "5",
+          "worstRating": "1"
+        },
+        "review": [
+          {
+            "@type": "Review",
+            "author": {
+              "@type": "Person",
+              "name": "Sarah Johnson"
+            },
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5"
+            },
+            "reviewBody": "Clyde Decking Solutions were absolutely brilliant! They installed our composite decking and the quality is outstanding. Professional, reliable, and great value for money. Would definitely use again and recommend to anyone needing decking work.",
+            "datePublished": "2024-11-15"
+          },
+          {
+            "@type": "Review",
+            "author": {
+              "@type": "Person",
+              "name": "Mike Thompson"
+            },
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5"
+            },
+            "reviewBody": "Excellent fencing installation! The team delivered on time and the workmanship is superb. Great communication throughout. Will definitely use again for future projects.",
+            "datePublished": "2024-11-10"
+          },
+          {
+            "@type": "Review",
+            "author": {
+              "@type": "Person",
+              "name": "Lisa Brown"
+            },
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5"
+            },
+            "reviewBody": "The team helped repair our damaged fence and did an excellent job. Very professional and the quality of work is outstanding. Very reasonable price and highly recommend!",
+            "datePublished": "2024-11-05"
+          },
+          {
+            "@type": "Review",
+            "author": {
+              "@type": "Person",
+              "name": "David Wilson"
+            },
+            "reviewRating": {
+              "@type": "Rating",
+              "ratingValue": "5",
+              "bestRating": "5"
+            },
+            "reviewBody": "Fantastic service! They built our custom decking and the work is exceptional. Very professional and delivered exactly what we wanted. Will definitely use again for future projects.",
+            "datePublished": "2024-10-28"
+          }
+        ],
+        "makesOffer": [
+          {
+            "@type": "Offer",
+            "name": "Free Quote",
+            "description": "Complimentary, no-obligation quotes for all decking and fencing projects",
+            "price": "0",
+            "priceCurrency": "GBP"
+          }
+        ],
+        "paymentAccepted": ["Cash", "Bank Transfer", "Cheque"],
+        "currenciesAccepted": "GBP"
+      }
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>
+
+<style is:global>
+  @import '../index.css';
+</style>
+
+
