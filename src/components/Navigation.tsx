@@ -26,28 +26,71 @@ const Navigation = () => {
 
   const handleCallClick = () => {
     trackPhoneCall('navigation');
-    window.location.href = "tel:+447949912201";
+    // Use tracking number for runtime clicks (HTML source still has real number for SEO)
+    window.location.href = "tel:+447427570533";
   };
 
   const scrollToSection = (sectionId: string) => {
     trackNavigation(sectionId);
-    document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
     setIsMenuOpen(false);
+    
+    // Check if we're on the contact page or if the section doesn't exist on current page
+    const currentPath = window.location.pathname;
+    const sectionElement = document.getElementById(sectionId);
+    
+    if (currentPath === '/contact' || !sectionElement) {
+      // Redirect to home page with hash anchor
+      window.location.href = `/#${sectionId}`;
+    } else {
+      // Scroll to section on current page
+      sectionElement.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   const handleQuoteClick = () => {
     trackQuoteRequest('navigation_button', []);
-    scrollToSection("contact-form");
+    window.location.href = "/contact";
   };
 
 
+  const handleHomeClick = () => {
+    trackNavigation('home');
+    setIsMenuOpen(false);
+    if (window.location.pathname === '/contact') {
+      window.location.href = '/';
+    } else {
+      scrollToSection("hero");
+    }
+  };
+
+  const handleServicesClick = () => {
+    trackNavigation('services');
+    setIsMenuOpen(false);
+    const currentPath = window.location.pathname;
+    if (currentPath === '/') {
+      // On home page, scroll to services section
+      const servicesElement = document.getElementById("services");
+      if (servicesElement) {
+        servicesElement.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.location.href = "/services";
+      }
+    } else {
+      // On any other page, go to services page
+      window.location.href = "/services";
+    }
+  };
+
   const navItems = [
-    { label: "Home", onClick: () => scrollToSection("hero") },
-    { label: "Services", onClick: () => scrollToSection("services") },
+    { label: "Home", onClick: handleHomeClick },
+    { label: "Services", onClick: handleServicesClick },
     { label: "Gallery", onClick: () => scrollToSection("gallery") },
     { label: "Reviews", onClick: () => scrollToSection("reviews") },
     { label: "FAQ", onClick: () => scrollToSection("faq") },
-    { label: "Contact", onClick: () => scrollToSection("contact-form") },
+    { label: "Contact", onClick: () => {
+      setIsMenuOpen(false);
+      window.location.href = "/contact";
+    } },
   ];
 
   return (
@@ -57,16 +100,21 @@ const Navigation = () => {
         : 'bg-transparent'
     }`}>
       <div className="container mx-auto max-w-7xl px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20 lg:h-24">
           {/* Logo */}
           <div className="flex items-center">
-            <div className="w-24 h-24">
-              <LazyImage
-                src="/cds - Edited.png"
-                alt="Clyde Decking Solutions Ltd logo"
-                className="w-full h-full object-contain brightness-0 invert"
-              />
-            </div>
+            <button
+              onClick={() => window.location.href = '/'}
+              className="cursor-pointer"
+            >
+              <div className="w-24 h-24">
+                <LazyImage
+                  src="/cds - Edited.png"
+                  alt="Clyde Decking Solutions Ltd logo"
+                  className="w-full h-full object-contain brightness-0 invert"
+                />
+              </div>
+            </button>
           </div>
 
           {/* Desktop Navigation */}
@@ -84,20 +132,19 @@ const Navigation = () => {
 
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button
+            <button
               onClick={handleCallClick}
-              variant="ghost"
-              className="flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground"
+              className="flex items-center justify-center gap-2 text-primary-foreground/80 hover:text-primary-foreground px-6 py-3 lg:px-8 lg:py-4 rounded-xl font-semibold text-base lg:text-lg transition-colors duration-200"
             >
-              <Phone className="w-4 h-4" />
+              <Phone className="w-5 h-5 lg:w-6 lg:h-6" />
               07949 912201
-            </Button>
-            <Button
+            </button>
+            <button
               onClick={handleQuoteClick}
-              className="bg-primary-foreground hover:bg-primary-foreground/90 text-primary px-6 py-2 rounded-full font-semibold"
+              className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 lg:px-10 lg:py-5 rounded-xl font-bold text-lg lg:text-xl transition-colors duration-200"
             >
-              Free Quote
-            </Button>
+              Get a Free Quote
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
@@ -137,9 +184,9 @@ const Navigation = () => {
                 </Button>
                 <Button
                   onClick={handleQuoteClick}
-                  className="w-full bg-primary-foreground hover:bg-primary-foreground/90 text-primary"
+                  className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold text-lg"
                 >
-                  Get Free Quote
+                  Get a Free Quote
                 </Button>
               </div>
             </div>

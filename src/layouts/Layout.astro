@@ -10,13 +10,13 @@ interface Props {
 const {
   title = "Clyde Decking | Decking & Fencing Services Glasgow & Central Belt",
   description = "Expert decking & fencing services in Glasgow, Edinburgh, Stirling, Ayrshire & Scotland's Central Belt. Composite & wooden decking, fencing installation & repairs. Free quotes available.",
-  canonical = "https://clydedecking.netlify.app/",
-  image = "https://clydedecking.netlify.app/cds - Edited.png",
+  canonical = "https://clydedeckingsolutionsltd.com/",
+  image = "https://clydedeckingsolutionsltd.com/cds - Edited.png",
   robots = "index, follow",
 } = Astro.props;
 
 const currentUrl = canonical || Astro.url.href;
-const ogImage = image || "https://clydedecking.netlify.app/cds - Edited.png";
+const ogImage = image || "https://clydedeckingsolutionsltd.com/cds - Edited.png";
 ---
 
 <!doctype html>
@@ -81,7 +81,7 @@ const ogImage = image || "https://clydedecking.netlify.app/cds - Edited.png";
     <!-- Additional meta tags for better social sharing -->
     <meta name="theme-color" content="#1e40af" />
     <meta name="msapplication-TileColor" content="#1e40af" />
-    <meta name="msapplication-TileImage" content="https://clydedecking.netlify.app/cds - Edited.png" />
+    <meta name="msapplication-TileImage" content="https://clydedeckingsolutionsltd.com/cds - Edited.png" />
     
     <!-- Enhanced JSON-LD Schema for LocalBusiness -->
     <script type="application/ld+json" is:inline>
@@ -91,7 +91,7 @@ const ogImage = image || "https://clydedecking.netlify.app/cds - Edited.png";
         "name": "Clyde Decking Solutions Ltd",
         "alternateName": "Clyde Decking & Fencing",
         "description": "Expert decking & fencing services in Glasgow, Edinburgh, Stirling, Ayrshire & Scotland's Central Belt. Composite & wooden decking, fencing installation & repairs. Free quotes available.",
-        "url": "https://clydedecking.netlify.app/",
+        "url": "https://clydedeckingsolutionsltd.com/",
         "telephone": "+447949912201",
         "email": "clydedeckingsolutionsltd@gmail.com",
         "foundingDate": "2020",
@@ -99,7 +99,7 @@ const ogImage = image || "https://clydedecking.netlify.app/cds - Edited.png";
           "@type": "PostalAddress",
           "addressLocality": "Glasgow",
           "addressRegion": "Scotland",
-          "addressCountry": "Scotland",
+          "addressCountry": "GB",
           "postalCode": "G1"
         },
         "geo": {
@@ -186,12 +186,12 @@ const ogImage = image || "https://clydedecking.netlify.app/cds - Edited.png";
         ],
         "priceRange": "$$",
         "image": [
-          "https://clydedecking.netlify.app/cds - Edited.png",
-          "https://clydedecking.netlify.app/gallery/deck1.jpg",
-          "https://clydedecking.netlify.app/gallery/deck2.jpg",
-          "https://clydedecking.netlify.app/gallery/Fence1.jpg"
+          "https://clydedeckingsolutionsltd.com/cds - Edited.png",
+          "https://clydedeckingsolutionsltd.com/gallery/deck1.jpg",
+          "https://clydedeckingsolutionsltd.com/gallery/deck2.jpg",
+          "https://clydedeckingsolutionsltd.com/gallery/Fence1.jpg"
         ],
-        "logo": "https://clydedecking.netlify.app/cds - Edited.png",
+        "logo": "https://clydedeckingsolutionsltd.com/cds - Edited.png",
         "sameAs": [
           "https://www.facebook.com/people/Clyde-Decking/100095203176792/?_rdr"
         ],
@@ -352,6 +352,143 @@ const ogImage = image || "https://clydedecking.netlify.app/cds - Edited.png";
   </head>
   <body>
     <slot />
+    
+    <!-- Phone Number Tracking Script -->
+    <!-- HTML source contains real number (07949 912201) for SEO, JavaScript replaces with tracking number at runtime -->
+    <script is:inline>
+      (function() {
+        const REAL_PHONE = '07949 912201';
+        const REAL_PHONE_INTL = '+447949912201';
+        const REAL_PHONE_TEL = 'tel:+447949912201';
+        const REAL_PHONE_CLEAN = '447949912201';
+        
+        const TRACKING_PHONE = '07427 570533';
+        const TRACKING_PHONE_INTL = '+447427570533';
+        const TRACKING_PHONE_TEL = 'tel:+447427570533';
+        const TRACKING_PHONE_CLEAN = '447427570533';
+        
+        // Track which nodes we've already processed to avoid infinite loops
+        const processedNodes = new WeakSet();
+        
+        function replacePhoneNumbers() {
+          // Replace text content
+          const walker = document.createTreeWalker(
+            document.body,
+            NodeFilter.SHOW_TEXT,
+            {
+              acceptNode: function(node) {
+                // Skip script and style tags
+                const parent = node.parentElement;
+                if (parent && (parent.tagName === 'SCRIPT' || parent.tagName === 'STYLE')) {
+                  return NodeFilter.FILTER_REJECT;
+                }
+                // Skip if already processed
+                if (processedNodes.has(node)) {
+                  return NodeFilter.FILTER_REJECT;
+                }
+                return NodeFilter.FILTER_ACCEPT;
+              }
+            }
+          );
+          
+          const textNodes = [];
+          let node = walker.nextNode();
+          
+          while (node) {
+            if (node.nodeType === Node.TEXT_NODE && node.textContent) {
+              const text = node.textContent.trim();
+              // Check if this text node contains the phone number
+              if (
+                text.includes(REAL_PHONE) ||
+                text.includes(REAL_PHONE_INTL) ||
+                text.includes('07949 912201') ||
+                text.includes('+44 7949 912201') ||
+                text.includes('7949 912201')
+              ) {
+                textNodes.push(node);
+                processedNodes.add(node);
+              }
+            }
+            node = walker.nextNode();
+          }
+          
+          // Replace text content
+          textNodes.forEach(function(textNode) {
+            if (textNode.textContent) {
+              let newText = textNode.textContent;
+              
+              // Replace various formats (be careful with order - most specific first)
+              newText = newText.replace(/\+44\s?7949\s?912201/g, TRACKING_PHONE_INTL);
+              newText = newText.replace(/\+447949912201/g, TRACKING_PHONE_INTL);
+              newText = newText.replace(/07949\s?912201/g, TRACKING_PHONE);
+              newText = newText.replace(/7949\s?912201/g, TRACKING_PHONE);
+              newText = newText.replace(/447949912201/g, TRACKING_PHONE_CLEAN);
+              
+              if (newText !== textNode.textContent) {
+                textNode.textContent = newText;
+              }
+            }
+          });
+          
+          // Replace tel: links
+          const telLinks = document.querySelectorAll('a[href^="tel:"]');
+          telLinks.forEach(function(link) {
+            const href = link.getAttribute('href');
+            if (href) {
+              // Replace various tel: formats
+              if (href.includes(REAL_PHONE_CLEAN) || 
+                  href.includes('447949912201') || 
+                  href.includes('7949912201') ||
+                  href === REAL_PHONE_TEL) {
+                link.setAttribute('href', TRACKING_PHONE_TEL);
+              }
+            }
+          });
+          
+          // Replace WhatsApp links
+          const whatsappLinks = document.querySelectorAll('a[href*="wa.me"]');
+          whatsappLinks.forEach(function(link) {
+            const href = link.getAttribute('href');
+            if (href && (href.includes('447949912201') || href.includes('7949912201'))) {
+              link.setAttribute('href', href.replace(/447949912201|7949912201/g, TRACKING_PHONE_CLEAN));
+            }
+          });
+        }
+        
+        // Run on DOM ready
+        if (document.readyState === 'loading') {
+          document.addEventListener('DOMContentLoaded', replacePhoneNumbers);
+        } else {
+          replacePhoneNumbers();
+        }
+        
+        // Also run after delays to catch dynamically loaded content (React components, etc.)
+        setTimeout(replacePhoneNumbers, 100);
+        setTimeout(replacePhoneNumbers, 500);
+        setTimeout(replacePhoneNumbers, 1000);
+        setTimeout(replacePhoneNumbers, 2000);
+        
+        // Use MutationObserver to catch dynamically added content
+        if (typeof MutationObserver !== 'undefined') {
+          const observer = new MutationObserver(function(mutations) {
+            let shouldReplace = false;
+            mutations.forEach(function(mutation) {
+              if (mutation.addedNodes.length > 0) {
+                shouldReplace = true;
+              }
+            });
+            if (shouldReplace) {
+              setTimeout(replacePhoneNumbers, 50);
+            }
+          });
+          
+          observer.observe(document.body, {
+            childList: true,
+            subtree: true
+          });
+        }
+      })();
+    </script>
   </body>
 </html>
 

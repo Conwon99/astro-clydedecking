@@ -1,7 +1,5 @@
-import { Button } from "@/components/ui/button";
-import { ArrowRight, Hammer, Trees, Wrench, Home, Scissors, Settings, Shield } from "lucide-react";
-import LazyImage from "@/components/LazyImage";
 import { trackServiceClick } from "@/utils/analytics";
+import LazyImage from "@/components/LazyImage";
 
 const ServicesGrid = () => {
   const services = [
@@ -11,8 +9,7 @@ const ServicesGrid = () => {
       features: ["Low maintenance", "Weather resistant", "Long-lasting", "Modern design"],
       image: "/gallery/imgi_4_gallery 7.jpg",
       fallbackImage: "/gallery/imgi_4_gallery 7.jpg",
-      icon: Hammer,
-      color: "primary-blue"
+      link: "/services/composite-decking"
     },
     {
       title: "Wooden Decking", 
@@ -20,8 +17,7 @@ const ServicesGrid = () => {
       features: ["Natural beauty", "Custom designs", "Professional installation", "Quality materials"],
       image: "/gallery/imgi_5_gallery 6.jpg",
       fallbackImage: "/gallery/imgi_5_gallery 6.jpg",
-      icon: Trees,
-      color: "sky-blue"
+      link: "/services/wooden-decking"
     },
     {
       title: "Fencing Installation",
@@ -29,8 +25,7 @@ const ServicesGrid = () => {
       features: ["Various materials", "Custom heights", "Secure installation", "Weather protection"],
       image: "/gallery/imgi_7_gallery 2.jpg",
       fallbackImage: "/gallery/imgi_7_gallery 2.jpg",
-      icon: Shield,
-      color: "dark-blue"
+      link: "/services/fencing-installation"
     },
     {
       title: "Fence Repairs",
@@ -38,8 +33,7 @@ const ServicesGrid = () => {
       features: ["Quick repairs", "Post replacement", "Panel fixing", "Maintenance advice"],
       image: "/gallery/imgi_8_gallery 3.jpg",
       fallbackImage: "/gallery/imgi_8_gallery 3.jpg",
-      icon: Wrench,
-      color: "primary-blue"
+      link: "/services/fence-repairs"
     },
     {
       title: "Custom Outdoor Structures",
@@ -47,14 +41,13 @@ const ServicesGrid = () => {
       features: ["Pergolas", "Gates", "Outdoor storage", "Custom structures"],
       image: "/gallery/imgi_6_gallery 4.jpg",
       fallbackImage: "/gallery/imgi_6_gallery 4.jpg",
-      icon: Settings,
-      color: "sky-blue"
+      link: "/services/custom-outdoor-structures"
     }
   ];
 
-  const handleQuoteClick = (serviceTitle: string) => {
+  const handleLearnMore = (serviceTitle: string, link: string) => {
     trackServiceClick(serviceTitle, 'services_grid');
-    document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
+    window.location.href = link;
   };
 
   return (
@@ -72,21 +65,24 @@ const ServicesGrid = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {services.map((service, index) => (
-            <div key={index} className="card-service group overflow-hidden flex flex-col h-full">
-              {/* Service Image */}
-              <div className="relative -m-6 mb-0 h-48 overflow-hidden">
+            <article
+              key={index}
+              className="group overflow-hidden flex flex-col rounded-3xl bg-card shadow-[var(--shadow-card)] hover:shadow-[var(--shadow-soft)] transition-[var(--transition-smooth)] hover:scale-[1.02] h-full"
+            >
+              {/* Image (Dirtworks style: aspect wrapper, object-cover, centered) */}
+              <div className="aspect-[4/3] overflow-hidden block">
                 <LazyImage
                   src={service.image}
                   alt={`Professional ${service.title.toLowerCase()} service - expert decking and fencing solutions`}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full object-cover object-center transition-transform duration-300 group-hover:scale-110"
                   fallbackSrc={service.fallbackImage}
                 />
               </div>
 
-              {/* Service Content */}
-              <div className="flex flex-col flex-grow pt-6">
+              {/* Content */}
+              <div className="p-6 flex flex-col flex-grow">
                 <div className="flex-grow">
                   <h3 className="font-display text-2xl font-bold text-[hsl(var(--asphalt-grey))] mb-2">
                     {service.title}
@@ -94,8 +90,6 @@ const ServicesGrid = () => {
                   <p className="text-[hsl(var(--asphalt-grey))] opacity-80 mb-4">
                     {service.description}
                   </p>
-
-                  {/* Features List */}
                   <ul className="space-y-2">
                     {service.features.map((feature, featureIndex) => (
                       <li key={featureIndex} className="flex items-start gap-2 text-sm text-[hsl(var(--asphalt-grey))]">
@@ -106,18 +100,16 @@ const ServicesGrid = () => {
                   </ul>
                 </div>
 
-                {/* CTA Button - positioned at bottom */}
                 <div className="mt-6">
-                  <Button 
-                    onClick={() => handleQuoteClick(service.title)}
-                    className="w-full bg-gradient-to-r from-green-400 to-blue-500 hover:from-green-500 hover:to-blue-600 text-white font-semibold rounded-full group/button"
+                  <button 
+                    onClick={() => handleLearnMore(service.title, service.link)}
+                    className="block w-full text-center px-4 py-2 bg-[hsl(var(--muted))] hover:bg-[hsl(var(--muted))]/80 text-[hsl(var(--asphalt-grey))] font-semibold rounded-full transition-colors"
                   >
-                    Request a Quote
-                    <ArrowRight className="w-4 h-4 ml-2 group-hover/button:translate-x-1 transition-transform" />
-                  </Button>
+                    Learn more
+                  </button>
                 </div>
               </div>
-            </div>
+            </article>
           ))}
         </div>
       </div>

@@ -1,0 +1,156 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
+import Providers from '@/components/Providers';
+import { CheckCircle, Star, MapPin, Phone, ArrowRight } from 'lucide-react';
+import LazyImage from '@/components/LazyImage';
+---
+
+<Layout
+  title="Custom Outdoor Structures | Glasgow & Central Belt | Clyde Decking"
+  description="Bespoke outdoor structures and joinery solutions in Glasgow, Edinburgh, Stirling & Ayrshire. Pergolas, gates, outdoor storage, custom structures. Free quotes available."
+  canonical="https://clydedeckingsolutionsltd.com/services/custom-outdoor-structures"
+>
+  <Providers client:load>
+    <div class="min-h-screen bg-background">
+      <Navigation client:load />
+      
+      <section class="relative py-24 px-4 pt-32 bg-gradient-to-br from-primary/10 via-primary/5 to-background">
+        <div class="container mx-auto max-w-6xl">
+          <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h1 class="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
+                Custom Outdoor Structures
+              </h1>
+              <h2 class="text-2xl md:text-3xl text-muted-foreground mb-8">
+                Glasgow & Central Belt
+              </h2>
+              <p class="text-xl text-muted-foreground leading-relaxed mb-8">
+                Bespoke outdoor structures and joinery solutions tailored to your needs. 
+                Pergolas, gates, outdoor storage, and custom structures designed and built 
+                to enhance your outdoor space.
+              </p>
+              <div class="flex flex-col sm:flex-row gap-4">
+                <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-bold text-lg rounded-xl transition-colors duration-200">
+                  Get a Free Quote
+                </a>
+                <a href="tel:+447949912201" class="inline-flex items-center justify-center px-8 py-4 border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold text-lg rounded-xl transition-colors duration-200">
+                  <Phone class="w-5 h-5 mr-2" />
+                  Call 07949 912201
+                </a>
+              </div>
+            </div>
+            <div class="relative">
+              <div class="rounded-2xl overflow-hidden shadow-2xl">
+                <LazyImage client:load src="/gallery/imgi_6_gallery 4.jpg" alt="Custom outdoor structures and joinery" className="w-full h-auto" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 px-4 bg-white">
+        <div class="container mx-auto max-w-6xl">
+          <div class="text-center mb-16">
+            <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground mb-6">
+              Our Custom Structures
+            </h2>
+            <p class="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Bespoke outdoor structures designed and built to your exact specifications.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div class="bg-muted/50 rounded-xl overflow-hidden">
+              <div class="aspect-video overflow-hidden">
+                <LazyImage client:load src="/gallery/imgi_6_gallery 4.jpg" alt="Pergolas custom outdoor structures" className="w-full h-full object-cover" />
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-semibold text-foreground mb-3">Pergolas</h3>
+                <p class="text-muted-foreground">Beautiful pergolas providing shade and structure to your outdoor living space.</p>
+              </div>
+            </div>
+
+            <div class="bg-muted/50 rounded-xl overflow-hidden">
+              <div class="aspect-video overflow-hidden">
+                <LazyImage client:load src="/gallery/Fence1.jpg" alt="Custom gates outdoor structures" className="w-full h-full object-cover" />
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-semibold text-foreground mb-3">Gates</h3>
+                <p class="text-muted-foreground">Custom gates matching your property's style, from traditional to modern designs.</p>
+              </div>
+            </div>
+
+            <div class="bg-muted/50 rounded-xl overflow-hidden">
+              <div class="aspect-video overflow-hidden">
+                <LazyImage client:load src="/gallery/deck1.jpg" alt="Outdoor storage custom structures" className="w-full h-full object-cover" />
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-semibold text-foreground mb-3">Outdoor Storage</h3>
+                <p class="text-muted-foreground">Custom-built sheds, storage boxes, and outdoor cabinets for your garden needs.</p>
+              </div>
+            </div>
+
+            <div class="bg-muted/50 rounded-xl overflow-hidden">
+              <div class="aspect-video overflow-hidden">
+                <LazyImage client:load src="/gallery/imgi_6_gallery 4.jpg" alt="Custom structures outdoor" className="w-full h-full object-cover" />
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-semibold text-foreground mb-3">Custom Structures</h3>
+                <p class="text-muted-foreground">Unique structures designed specifically for your space and requirements.</p>
+              </div>
+            </div>
+
+            <div class="bg-muted/50 rounded-xl overflow-hidden">
+              <div class="aspect-video overflow-hidden">
+                <LazyImage client:load src="/gallery/deck2.jpg" alt="Garden features custom structures" className="w-full h-full object-cover" />
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-semibold text-foreground mb-3">Garden Features</h3>
+                <p class="text-muted-foreground">Planters, trellises, and decorative features to enhance your garden design.</p>
+              </div>
+            </div>
+
+            <div class="bg-muted/50 rounded-xl overflow-hidden">
+              <div class="aspect-video overflow-hidden">
+                <LazyImage client:load src="/gallery/deck3.jpg" alt="Bespoke design custom structures" className="w-full h-full object-cover" />
+              </div>
+              <div class="p-6">
+                <h3 class="text-xl font-semibold text-foreground mb-3">Bespoke Design</h3>
+                <p class="text-muted-foreground">Tailored designs created to match your vision and complement your property.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 px-4 bg-primary text-white">
+        <div class="container mx-auto max-w-4xl text-center">
+          <h2 class="font-display text-3xl md:text-4xl font-bold mb-6">Need Custom Structures?</h2>
+          <p class="text-xl text-white/90 mb-8">Get a free quote for bespoke outdoor structures.</p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary hover:bg-gray-100 font-bold text-lg rounded-xl transition-colors duration-200">
+              Get a Free Quote
+              <ArrowRight client:load class="w-5 h-5 ml-2" />
+            </a>
+            <a href="tel:+447949912201" class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-primary font-semibold text-lg rounded-xl transition-colors duration-200">
+              <Phone client:load class="w-5 h-5 mr-2" />
+              Call 07949 912201
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <Footer client:load />
+    </div>
+  </Providers>
+</Layout>
+
+<script>
+  import { trackPageView } from '@/utils/analytics';
+  if (typeof window !== 'undefined') {
+    trackPageView(window.location.pathname, document.title);
+  }
+</script>
+

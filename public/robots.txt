@@ -1,5 +1,5 @@
 # Robots.txt for Clyde Decking
-# https://clydedecking.netlify.app/
+# https://clydedeckingsolutionsltd.com/
 
 User-agent: *
 Allow: /
@@ -34,4 +34,4 @@ User-agent: LinkedInBot
 Allow: /
 
 # Sitemap location
-Sitemap: https://clydedecking.netlify.app/sitemap.xml
+Sitemap: https://clydedeckingsolutionsltd.com/sitemap.xml

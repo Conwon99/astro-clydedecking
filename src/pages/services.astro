@@ -1,0 +1,153 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
+import Providers from '@/components/Providers';
+import { ArrowRight, CheckCircle } from 'lucide-react';
+import LazyImage from '@/components/LazyImage';
+
+const services = [
+  {
+    title: "Composite Decking",
+    description: "High-quality composite decking solutions for modern outdoor spaces",
+    slug: "composite-decking",
+    image: "/gallery/imgi_4_gallery 7.jpg"
+  },
+  {
+    title: "Wooden Decking", 
+    description: "Traditional wooden decking with expert craftsmanship",
+    slug: "wooden-decking",
+    image: "/gallery/imgi_5_gallery 6.jpg"
+  },
+  {
+    title: "Fencing Installation",
+    description: "Professional fencing solutions for privacy and security",
+    slug: "fencing-installation",
+    image: "/gallery/imgi_7_gallery 2.jpg"
+  },
+  {
+    title: "Fence Repairs",
+    description: "Expert repair and maintenance services for existing fences",
+    slug: "fence-repairs",
+    image: "/gallery/imgi_8_gallery 3.jpg"
+  },
+  {
+    title: "Custom Outdoor Structures",
+    description: "Bespoke outdoor structures and joinery solutions",
+    slug: "custom-outdoor-structures",
+    image: "/gallery/imgi_6_gallery 4.jpg"
+  }
+];
+---
+
+<Layout
+  title="Our Services | Professional Decking & Fencing | Clyde Decking Solutions"
+  description="Expert decking and fencing services in Glasgow, Edinburgh, Stirling & Ayrshire. Composite decking, wooden decking, fencing installation, repairs, and custom outdoor structures. Free quotes available."
+  canonical="https://clydedeckingsolutionsltd.com/services"
+>
+  <Providers client:load>
+    <div class="min-h-screen bg-background">
+      <Navigation client:load />
+      
+      {/* Hero Section */}
+      <section class="relative py-24 px-4 pt-32 bg-gradient-to-br from-primary/10 via-primary/5 to-background">
+        <div class="container mx-auto max-w-6xl">
+          <div class="text-center mb-12">
+            <h1 class="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
+              Our <span class="text-primary">Services</span>
+            </h1>
+            <p class="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Professional decking and fencing solutions across Scotland's Central Belt. 
+              From composite decking to custom outdoor structures, we deliver quality craftsmanship 
+              and exceptional service.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Services List */}
+      <section class="py-20 px-4">
+        <div class="container mx-auto max-w-6xl">
+          <div class="space-y-8">
+            {services.map((service, index) => (
+              <article 
+                key={service.slug}
+                class={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-8 lg:gap-12 items-center bg-white rounded-2xl p-8 lg:p-12 shadow-lg hover:shadow-xl transition-shadow duration-300`}
+              >
+                {/* Image */}
+                <div class="flex-1 w-full lg:w-1/2">
+                  <div class="relative rounded-xl overflow-hidden aspect-[4/3]">
+                    <LazyImage
+                      client:load
+                      src={service.image}
+                      alt={`${service.title} service - professional decking and fencing solutions`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div class="flex-1 w-full lg:w-1/2 space-y-6">
+                  <div>
+                    <h2 class="font-display text-3xl lg:text-4xl font-bold text-foreground mb-4">
+                      {service.title}
+                    </h2>
+                    <p class="text-lg text-muted-foreground leading-relaxed mb-6">
+                      {service.description}
+                    </p>
+                  </div>
+                  
+                  <a
+                    href={`/services/${service.slug}`}
+                    class="inline-flex items-center gap-2 text-primary font-semibold text-lg hover:gap-4 transition-all duration-300 group"
+                  >
+                    Learn More
+                    <ArrowRight class="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section class="py-20 px-4 bg-primary/5">
+        <div class="container mx-auto max-w-4xl text-center">
+          <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground mb-6">
+            Ready to Start Your Project?
+          </h2>
+          <p class="text-xl text-muted-foreground mb-8">
+            Get a free, no-obligation quote for any of our services. 
+            Our expert team is ready to help bring your outdoor vision to life.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="/contact"
+              class="inline-flex items-center justify-center px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-bold text-lg rounded-xl transition-colors duration-200"
+            >
+              Get a Free Quote
+            </a>
+            <a
+              href="tel:+447949912201"
+              class="inline-flex items-center justify-center px-8 py-4 border-2 border-primary text-primary hover:bg-primary hover:text-white font-semibold text-lg rounded-xl transition-colors duration-200"
+            >
+              Call 07949 912201
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <Footer client:load />
+    </div>
+  </Providers>
+</Layout>
+
+<script>
+  import { trackPageView } from '@/utils/analytics';
+  
+  if (typeof window !== 'undefined') {
+    trackPageView(window.location.pathname, document.title);
+  }
+</script>
+

@@ -1,0 +1,51 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Navigation from '@/components/Navigation';
+import ContactForm from '@/components/ContactForm';
+import Footer from '@/components/Footer';
+import Providers from '@/components/Providers';
+---
+
+<Layout
+  title="Contact Us | Get Your Free Quote | Clyde Decking Solutions"
+  description="Contact Clyde Decking for your free quote. Expert decking & fencing services in Glasgow, Edinburgh, Stirling & Scotland's Central Belt. Call 07949 912201 or fill out our contact form."
+  canonical="https://clydedeckingsolutionsltd.com/contact"
+>
+  <Providers client:load>
+    <div class="min-h-screen bg-background">
+      <Navigation client:load />
+      
+      {/* Hero Section */}
+      <section class="relative py-20 px-4 pt-32 bg-gradient-to-br from-primary/10 to-primary/5">
+        <div class="container mx-auto max-w-4xl">
+          <div class="text-center mb-12">
+            <h1 class="font-display font-bold text-4xl lg:text-5xl text-foreground mb-6">
+              Get Your <span class="text-primary">Free Quote</span>
+            </h1>
+            <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Fill out the form below and we'll get back to you within 24 hours with a free, no-obligation quote for your decking or fencing project.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Form Section */}
+      <section class="py-16 px-4">
+        <div class="container mx-auto max-w-4xl">
+          <ContactForm client:load />
+        </div>
+      </section>
+
+      <Footer client:load />
+    </div>
+  </Providers>
+</Layout>
+
+<script>
+  import { trackPageView } from '@/utils/analytics';
+  
+  if (typeof window !== 'undefined') {
+    trackPageView(window.location.pathname, document.title);
+  }
+</script>
+

@@ -1,17 +1,8 @@
-import { Button } from "@/components/ui/button";
-import { Phone, Mail, Facebook } from "lucide-react";
-import { trackPhoneCall, trackMessenger } from "@/utils/analytics";
+import { ArrowRight } from "lucide-react";
 
 const ContactSection = () => {
-
-  const handleCallClick = () => {
-    trackPhoneCall('contact_section');
-    window.location.href = "tel:+447949912201";
-  };
-
-  const handleMessengerClick = () => {
-    trackMessenger('contact_section');
-    window.open("https://wa.me/447949912201", "_blank");
+  const handleQuoteClick = () => {
+    window.location.href = "/contact";
   };
 
   return (
@@ -25,13 +16,38 @@ const ContactSection = () => {
 
         <div className="flex justify-center">
           {/* Get Quote Button */}
-          <Button 
-            onClick={() => document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' })}
-            className="bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-8 rounded-xl transition-colors duration-200 text-lg"
+          <button
+            onClick={handleQuoteClick}
+            className="group relative inline-flex items-center justify-center gap-3 bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:from-green-600 hover:via-green-700 hover:to-green-800 text-white font-bold text-xl lg:text-2xl px-10 py-5 lg:px-12 lg:py-6 rounded-xl shadow-2xl hover:shadow-green-500/50 transition-all duration-300 hover:scale-105 transform overflow-hidden"
           >
-            Get a Free Quote
-          </Button>
+            {/* Continuous shine animation */}
+            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shine"></span>
+            
+            {/* Additional shine on hover */}
+            <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
+            
+            {/* Button content */}
+            <span className="relative z-10">Get a Free Quote</span>
+            <ArrowRight className="w-6 h-6 lg:w-7 lg:h-7 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
+            
+            {/* Glow effect */}
+            <span className="absolute inset-0 rounded-xl bg-green-400 opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300"></span>
+          </button>
         </div>
+        
+        <style jsx>{`
+          @keyframes shine {
+            0% {
+              transform: translateX(-100%) skewX(-15deg);
+            }
+            100% {
+              transform: translateX(200%) skewX(-15deg);
+            }
+          }
+          .animate-shine {
+            animation: shine 3s infinite;
+          }
+        `}</style>
       </div>
     </section>
   );

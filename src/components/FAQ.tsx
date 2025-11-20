@@ -98,7 +98,7 @@ const FAQ = () => {
                 Call 07949 912201
               </a>
               <button
-                onClick={() => document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() => window.location.href = "/contact"}
                 className="inline-flex items-center justify-center px-6 py-3 border-2 border-[hsl(var(--primary-blue))] text-[hsl(var(--primary-blue))] rounded-full font-semibold hover:bg-[hsl(var(--primary-blue))] hover:text-white transition-colors"
               >
                 Get Free Quote

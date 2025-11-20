@@ -1,96 +1,13 @@
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { useToast } from "@/hooks/use-toast";
-import { Phone, Mail, Clock, MapPin } from "lucide-react";
+import { MapPin, Star, ArrowRight } from "lucide-react";
 import LazyImage from "@/components/LazyImage";
-import WhatsAppIcon from "@/components/WhatsAppIcon";
-import { trackPhoneCall, trackMessenger, trackQuoteRequest, trackFormInteraction } from "@/utils/analytics";
 
 const Hero = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    service: '',
-    message: ''
-  });
-  const { toast } = useToast();
-
-  const serviceOptions = [
-    'Composite Decking',
-    'Wooden Decking', 
-    'Fencing Installation',
-    'Fence Repairs',
-    'Custom Outdoor Structures',
-    'Outdoor Structures',
-    'Decking Maintenance',
-    'Custom Decking Solutions'
-  ];
-
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    try {
-      const response = await fetch('https://formspree.io/f/xgvljren', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          service: formData.service,
-          message: formData.message,
-          _subject: 'Free Quote Request from Website'
-        }),
-      });
-
-      if (response.ok) {
-        // Track successful form submission
-        trackQuoteRequest('contact_form', [formData.service]);
-        trackFormInteraction('quote_form', 'submit_success');
-        
-        toast({
-          title: "Quote request sent!",
-          description: "Thank you for your request. We'll respond within 24 hours.",
-        });
-        
-        // Reset form
-        setFormData({
-          name: '',
-          email: '',
-          service: '',
-          message: ''
-        });
-      } else {
-        throw new Error('Failed to send message');
-      }
-    } catch (error) {
-      trackFormInteraction('quote_form', 'submit_error');
-      toast({
-        title: "Error sending request",
-        description: "Please try again or contact us directly.",
-        variant: "destructive",
-      });
-    }
-  };
-
-  const handleCallClick = () => {
-    trackPhoneCall('hero_section');
-    window.location.href = "tel:+447949912201";
-  };
-
-  const handleMessengerClick = () => {
-    trackMessenger('hero_section');
-    window.open("https://wa.me/447949912201", "_blank");
+  const handleQuoteClick = () => {
+    window.location.href = "/contact";
   };
 
   return (
-    <section id="hero" className="relative bg-background min-h-screen flex items-center py-20 px-4 pt-32 overflow-hidden w-full">
+    <section id="hero" className="relative bg-background min-h-screen flex items-center py-20 px-4 pt-40 overflow-hidden w-full">
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <LazyImage
@@ -103,9 +20,9 @@ const Hero = () => {
       </div>
       
       <div className="container mx-auto max-w-7xl relative z-10">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
+        <div className="max-w-4xl">
           {/* Text Content */}
-          <div className="text-left space-y-8">
+          <div className="space-y-8">
             <div className="space-y-6">
               
               <h1 className="font-display font-bold text-4xl sm:text-5xl md:text-5xl lg:text-6xl text-white leading-tight drop-shadow-lg">
@@ -124,95 +41,68 @@ const Hero = () => {
                 Glasgow & Central Belt
               </h2>
               
-              <p className="text-xl text-white/90 font-medium max-w-lg leading-relaxed drop-shadow-md">
+              <p className="text-xl text-white/90 font-medium max-w-2xl leading-relaxed drop-shadow-md">
                 Expert composite decking and wooden decking specialists serving Glasgow, Edinburgh, Ayrshire and across Scotlands central belt. Professional fencing installation and custom outdoor structures. Trusted decking contractors delivering premium outdoor living solutions
               </p>
             </div>
 
-
-
-            {/* Quick Contact */}
-            <div className="pt-4 border-t border-white/20">
-              <p className="text-white text-lg font-semibold mb-3">Give us a call or a Whatsapp for a free quote</p>
-              <div className="flex flex-col sm:flex-row gap-4 w-full">
-              <Button 
-                onClick={handleCallClick}
-                className="inline-flex items-center justify-center px-8 py-4 bg-white hover:bg-gray-100 text-primary rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+            {/* Get a Free Quote Button */}
+            <div className="pt-4">
+              <button
+                onClick={handleQuoteClick}
+                className="group relative inline-flex items-center justify-center gap-3 bg-gradient-to-r from-green-500 via-green-600 to-green-700 hover:from-green-600 hover:via-green-700 hover:to-green-800 text-white font-bold text-xl lg:text-2xl px-10 py-5 lg:px-12 lg:py-6 rounded-xl shadow-2xl hover:shadow-green-500/50 transition-all duration-300 hover:scale-105 transform overflow-hidden"
               >
-                <Phone className="w-7 h-7" />
-                07949 912201
-              </Button>
-              <Button 
-                onClick={handleMessengerClick}
-                className="inline-flex items-center justify-center gap-3 px-8 py-4 bg-green-600 hover:bg-green-700 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
+                {/* Continuous shine animation */}
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shine"></span>
+                
+                {/* Additional shine on hover */}
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></span>
+                
+                {/* Button content */}
+                <span className="relative z-10">Get a Free Quote</span>
+                <ArrowRight className="w-6 h-6 lg:w-7 lg:h-7 relative z-10 group-hover:translate-x-1 transition-transform duration-300" />
+                
+                {/* Glow effect */}
+                <span className="absolute inset-0 rounded-xl bg-green-400 opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-300"></span>
+              </button>
+            </div>
+            
+            <style jsx>{`
+              @keyframes shine {
+                0% {
+                  transform: translateX(-100%) skewX(-15deg);
+                }
+                100% {
+                  transform: translateX(200%) skewX(-15deg);
+                }
+              }
+              .animate-shine {
+                animation: shine 3s infinite;
+              }
+            `}</style>
+
+            {/* 5-Star Review Component */}
+            <div className="pt-4">
+              <a
+                href="https://www.facebook.com/profile.php?id=100095062849831&sk=reviews"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex flex-col sm:flex-row items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-6 py-4 hover:bg-white/20 transition-all duration-300 hover:scale-105 group"
               >
-                <WhatsAppIcon className="w-7 h-7" />
-                WhatsApp
-              </Button>
-              </div>
-            </div>
-          </div>
-
-          {/* Contact Form */}
-          <div className="card-service bg-black text-white border-white/20" id="contact-form">
-            <div className="text-center mb-6">
-              <h2 className="font-display text-3xl lg:text-4xl font-bold text-white mb-2">
-                GET A FREE QUOTE.
-              </h2>
-            </div>
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid sm:grid-cols-2 gap-4">
-                <div>
-                  <Label htmlFor="name" className="text-white font-semibold">Name</Label>
-                  <Input
-                    id="name"
-                    value={formData.name}
-                    onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                    required
-                    className="mt-2 rounded-xl border-2"
-                  />
+                <div className="flex items-center gap-1">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star
+                      key={i}
+                      className="w-6 h-6 text-yellow-400 fill-yellow-400"
+                    />
+                  ))}
                 </div>
-                <div>
-                  <Label htmlFor="phone" className="text-white font-semibold">Phone</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-                    required
-                    className="mt-2 rounded-xl border-2"
-                  />
+                <div className="text-left">
+                  <p className="text-white font-semibold text-lg">5-Star Rated</p>
+                  <p className="text-white/80 text-sm">Read our reviews on Facebook</p>
                 </div>
-              </div>
-
-              <div>
-                <Label htmlFor="email" className="text-white font-semibold">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                  required
-                  className="mt-2 rounded-xl border-2"
-                />
-              </div>
-
-
-              <div>
-                <Label htmlFor="message" className="text-white font-semibold">Message</Label>
-                <Textarea
-                  id="message"
-                  value={formData.message}
-                  onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
-                  placeholder="Tell us about your decking and fencing needs..."
-                  className="mt-2 rounded-xl border-2 min-h-[100px]"
-                />
-              </div>
-
-           <Button type="submit" className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 px-6 rounded-full transition-colors duration-200">
-             SEND
-           </Button>
-            </form>
+              </a>
+            </div>
           </div>
         </div>
       </div>
