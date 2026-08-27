@@ -1,29 +1,13 @@
 import { Star, ArrowRight } from "lucide-react";
+import { getFeaturedTestimonials } from "@/data/testimonials";
 
 const Reviews = () => {
-  const reviews = [
-    {
-      name: "Jenna Kelly",
-      location: "Glasgow",
-      rating: 5,
-      text: "Delighted with the decking Ryan & team did for us. From first visit to quote, to completion, the communication was excellent and happy with the price. Would highly recommend!",
-      service: "Decking Installation"
-    },
-    {
-      name: "Holland Lisa",
-      location: "Edinburgh",
-      rating: 5,
-      text: "Had Ryan and the guys out last week to remove my old fence and put up a new one. The guys worked really hard and honestly can't fault them ☺️ Will definitely use them again and recommend them to others. I'm delighted with the finished result and has made a huge difference! Thanks so much! ⭐️⭐️⭐️⭐️⭐️",
-      service: "Fencing Installation"
-    },
-    {
-      name: "Dee DDocherty",
-      location: "Stirling",
-      rating: 5,
-      text: "Clyde Decking were absolutely amazing! Professional from start to finish, great quotes and genuinely went above and beyond to get our fence replaced providing advice and guidance as to what would be best for replacement. Highly recommend!",
-      service: "Fence Repairs"
-    }
-  ];
+  const reviews = getFeaturedTestimonials(3).map((testimonial) => ({
+    name: testimonial.name,
+    location: testimonial.locationName ?? "Central Belt",
+    rating: testimonial.rating,
+    text: testimonial.text,
+  }));
 
   const renderStars = (rating: number) => {
     return Array.from({ length: 5 }, (_, i) => (

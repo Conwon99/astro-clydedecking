@@ -1,49 +1,16 @@
 import { trackServiceClick } from "@/utils/analytics";
 import LazyImage from "@/components/LazyImage";
+import { services as serviceData } from "@/data/services";
 
 const ServicesGrid = () => {
-  const services = [
-    {
-      title: "Composite Decking",
-      description: "High-quality composite decking solutions for modern outdoor spaces",
-      features: ["Low maintenance", "Weather resistant", "Long-lasting", "Modern design"],
-      image: "/gallery/imgi_4_gallery 7.jpg",
-      fallbackImage: "/gallery/imgi_4_gallery 7.jpg",
-      link: "/services/composite-decking"
-    },
-    {
-      title: "Wooden Decking", 
-      description: "Traditional wooden decking with expert craftsmanship",
-      features: ["Natural beauty", "Custom designs", "Professional installation", "Quality materials"],
-      image: "/gallery/imgi_5_gallery 6.jpg",
-      fallbackImage: "/gallery/imgi_5_gallery 6.jpg",
-      link: "/services/wooden-decking"
-    },
-    {
-      title: "Fencing Installation",
-      description: "Professional fencing solutions for privacy and security",
-      features: ["Various materials", "Custom heights", "Secure installation", "Weather protection"],
-      image: "/gallery/imgi_7_gallery 2.jpg",
-      fallbackImage: "/gallery/imgi_7_gallery 2.jpg",
-      link: "/services/fencing-installation"
-    },
-    {
-      title: "Fence Repairs",
-      description: "Expert repair and maintenance services for existing fences",
-      features: ["Quick repairs", "Post replacement", "Panel fixing", "Maintenance advice"],
-      image: "/gallery/imgi_8_gallery 3.jpg",
-      fallbackImage: "/gallery/imgi_8_gallery 3.jpg",
-      link: "/services/fence-repairs"
-    },
-    {
-      title: "Custom Outdoor Structures",
-      description: "Bespoke outdoor structures and joinery solutions",
-      features: ["Pergolas", "Gates", "Outdoor storage", "Custom structures"],
-      image: "/gallery/imgi_6_gallery 4.jpg",
-      fallbackImage: "/gallery/imgi_6_gallery 4.jpg",
-      link: "/services/custom-outdoor-structures"
-    }
-  ];
+  const services = serviceData.map((service) => ({
+    title: service.title,
+    description: service.cardDescription,
+    features: service.benefits.slice(0, 4).map((benefit) => benefit.title),
+    image: service.image,
+    fallbackImage: service.image,
+    link: `/services/${service.slug}`,
+  }));
 
   const handleLearnMore = (serviceTitle: string, link: string) => {
     trackServiceClick(serviceTitle, 'services_grid');

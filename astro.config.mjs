@@ -13,6 +13,10 @@ export default defineConfig({
     }),
   ],
   output: 'static',
+  site: 'https://clydedeckingsolutionsltd.com',
+  build: {
+    format: 'file',
+  },
   server: {
     host: true,
     port: 4321,

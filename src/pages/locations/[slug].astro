@@ -1,0 +1,173 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
+import Providers from '@/components/Providers';
+import LocationHero from '@/components/LocationHero';
+import BreadcrumbSchema from '@/components/BreadcrumbSchema.astro';
+import { Star } from 'lucide-react';
+import { locations, getLocationBySlug, getNearbyLocationLinks } from '@/data/locations';
+import { categories } from '@/data/categories';
+import { getLocationServicePath } from '@/data/locationServices';
+import { getTestimonialsForLocation, getFeaturedTestimonials } from '@/data/testimonials';
+import { business, absoluteUrl } from '@/data/business';
+
+export function getStaticPaths() {
+  return locations.map((location) => ({
+    params: { slug: location.slug },
+    props: { location },
+  }));
+}
+
+const { location } = Astro.props;
+const nearby = getNearbyLocationLinks(location);
+const testimonials = getTestimonialsForLocation(location.name);
+const displayTestimonials = testimonials.length > 0 ? testimonials : getFeaturedTestimonials(3);
+const canonical = absoluteUrl(`/locations/${location.slug}`);
+
+const placeSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${canonical}#webpage`,
+  name: location.title,
+  description: location.description,
+  url: canonical,
+  about: {
+    "@type": "Place",
+    name: location.name,
+  },
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: location.locationFaqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: { "@type": "Answer", text: faq.answer },
+  })),
+};
+---
+
+<Layout
+  title={location.title}
+  description={location.description}
+  canonical={canonical}
+>
+  <Providers client:load>
+    <div class="min-h-screen bg-background">
+      <Navigation client:load />
+
+      <LocationHero client:load name={location.name} intro={location.intro} trackSource={`location_${location.slug}`} />
+
+      {/* Services in this area */}
+      <section class="py-16 px-4 bg-white">
+        <div class="container mx-auto max-w-6xl">
+          <h2 class="font-display font-bold text-3xl text-foreground mb-8">
+            Services in {location.name}
+          </h2>
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+            {categories.map((category) => (
+              <a
+                href={getLocationServicePath(location.slug, category.slug)}
+                class="flex items-center justify-center text-center p-4 rounded-lg bg-muted/50 border border-border hover:border-primary/30 hover:text-primary transition-colors font-medium"
+              >
+                {category.name}
+              </a>
+            ))}
+          </div>
+
+          {nearby.length > 0 && (
+            <>
+              <h3 class="font-display font-bold text-2xl text-foreground mb-4">Nearby Areas We Cover</h3>
+              <div class="flex flex-wrap gap-3">
+                {nearby.map((n) => (
+                  <a href={`/locations/${n.slug}`} class="px-4 py-2 rounded-full bg-background border border-border hover:border-primary/30 hover:text-primary transition-colors text-sm font-medium">
+                    {n.name}
+                  </a>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section class="py-16 px-4 bg-muted/30">
+        <div class="container mx-auto max-w-6xl">
+          <h2 class="font-display font-bold text-3xl text-foreground mb-8 text-center">
+            What {location.name} Customers Say
+          </h2>
+          <div class="grid md:grid-cols-3 gap-8">
+            {displayTestimonials.map((testimonial) => (
+              <div class="bg-background border border-border rounded-xl p-6">
+                <div class="flex items-center gap-1 mb-4">
+                  {Array.from({ length: 5 }).map(() => (
+                    <Star client:load class="w-5 h-5 text-accent fill-current" />
+                  ))}
+                </div>
+                <p class="text-muted-foreground mb-4 italic">"{testimonial.text}"</p>
+                <div class="font-semibold text-foreground">{testimonial.name}</div>
+                {testimonial.locationName && <div class="text-sm text-muted-foreground">{testimonial.locationName}</div>}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Location FAQs */}
+      <section class="py-16 px-4 bg-white">
+        <div class="container mx-auto max-w-4xl">
+          <h2 class="font-display font-bold text-3xl text-foreground mb-8 text-center">
+            {location.name} FAQs
+          </h2>
+          <div class="space-y-4">
+            {location.locationFaqs.map((faq) => (
+              <div class="bg-muted/50 rounded-lg p-6">
+                <h3 class="font-semibold text-lg text-foreground mb-2">{faq.question}</h3>
+                <p class="text-muted-foreground">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section class="py-16 px-4 bg-primary text-white">
+        <div class="container mx-auto max-w-4xl text-center">
+          <h2 class="font-display font-bold text-4xl mb-4">
+            Ready to Transform Your {location.name} Garden?
+          </h2>
+          <p class="text-xl mb-8 opacity-90">
+            Get your free quote today for decking, fencing or a custom outdoor structure.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary rounded-full font-semibold hover:bg-gray-100 transition-colors">
+              Get a Free Quote
+            </a>
+            <a href={business.phoneTel} class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-primary transition-colors">
+              Call {business.phoneLocal}
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <Footer client:load />
+    </div>
+  </Providers>
+</Layout>
+
+<script type="application/ld+json" set:html={JSON.stringify(placeSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+<BreadcrumbSchema items={[
+  { name: 'Home', href: '/' },
+  { name: 'Locations', href: '/locations' },
+  { name: location.name, href: `/locations/${location.slug}` },
+]} />
+
+<script>
+  import { trackPageView } from '@/utils/analytics';
+  if (typeof window !== 'undefined') {
+    trackPageView(window.location.pathname, document.title);
+  }
+</script>

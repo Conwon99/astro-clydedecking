@@ -1,20 +1,11 @@
 import { MapPin } from "lucide-react";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { trackPhoneCall, trackMessenger } from "@/utils/analytics";
+import { business } from "@/data/business";
+import { locations } from "@/data/locations";
 
 const ServiceAreas = () => {
-  const serviceAreas = [
-    "Glasgow",
-    "Edinburgh",
-    "Stirling",
-    "Falkirk",
-    "Livingston",
-    "Ayr",
-    "Kilmarnock",
-    "Paisley",
-    "Hamilton",
-    "Cumbernauld"
-  ];
+  const serviceAreas = locations.filter((location) => location.character === "town");
 
   return (
     <section id="service-areas" className="py-20 px-4 bg-gradient-to-b from-background to-[hsl(var(--muted))]">
@@ -63,16 +54,17 @@ const ServiceAreas = () => {
           <div className="space-y-8">
 
             <div className="grid grid-cols-2 gap-4">
-              {serviceAreas.map((area, index) => (
-                <div
-                  key={index}
+              {serviceAreas.map((area) => (
+                <a
+                  key={area.slug}
+                  href={`/locations/${area.slug}`}
                   className="flex items-center gap-3 p-3 rounded-lg bg-background border border-border hover:border-primary/30 transition-colors group"
                 >
                   <MapPin className="w-4 h-4 text-primary flex-shrink-0 group-hover:scale-110 transition-transform" />
                   <span className="text-foreground font-medium group-hover:text-primary transition-colors">
-                    {area}
+                    {area.name}
                   </span>
-                </div>
+                </a>
               ))}
             </div>
 
@@ -86,14 +78,14 @@ const ServiceAreas = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <a
-                  href="tel:+447949912201"
+                  href={business.phoneTel}
                   onClick={() => trackPhoneCall('service_areas')}
                   className="inline-flex items-center justify-center px-6 py-3 bg-primary text-white rounded-full font-semibold hover:bg-primary/90 transition-colors"
                 >
-                  Call 07949 912201
+                  Call {business.phoneLocal}
                 </a>
                 <a
-                  href="https://wa.me/447949912201"
+                  href={business.whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackMessenger('service_areas')}

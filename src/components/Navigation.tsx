@@ -3,6 +3,8 @@ import { Menu, X, Phone } from "lucide-react";
 import { useState, useEffect } from "react";
 import LazyImage from "@/components/LazyImage";
 import { trackPhoneCall, trackNavigation, trackQuoteRequest } from "@/utils/analytics";
+import { business } from "@/data/business";
+import { TRACKING_PHONE_NUMBER_TEL } from "@/utils/phoneTracking";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -27,7 +29,7 @@ const Navigation = () => {
   const handleCallClick = () => {
     trackPhoneCall('navigation');
     // Use tracking number for runtime clicks (HTML source still has real number for SEO)
-    window.location.href = "tel:+447427570533";
+    window.location.href = TRACKING_PHONE_NUMBER_TEL;
   };
 
   const scrollToSection = (sectionId: string) => {
@@ -137,7 +139,7 @@ const Navigation = () => {
               className="flex items-center justify-center gap-2 text-primary-foreground/80 hover:text-primary-foreground px-6 py-3 lg:px-8 lg:py-4 rounded-xl font-semibold text-base lg:text-lg transition-colors duration-200"
             >
               <Phone className="w-5 h-5 lg:w-6 lg:h-6" />
-              07949 912201
+              {business.phoneLocal}
             </button>
             <button
               onClick={handleQuoteClick}
@@ -180,7 +182,7 @@ const Navigation = () => {
                   className="w-full justify-start flex items-center gap-2 text-primary-foreground hover:text-primary-foreground/80"
                 >
                   <Phone className="w-4 h-4" />
-                  Call: 07949 912201
+                  Call: {business.phoneLocal}
                 </Button>
                 <Button
                   onClick={handleQuoteClick}

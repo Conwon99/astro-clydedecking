@@ -3,6 +3,7 @@ import { Award, Users, Clock, Home, Facebook, Truck } from "lucide-react";
 import LazyImage from "@/components/LazyImage";
 import WhatsAppIcon from "@/components/WhatsAppIcon";
 import { trackMessenger } from "@/utils/analytics";
+import { business } from "@/data/business";
 
 const AboutUs = () => {
   return (
@@ -23,17 +24,17 @@ const AboutUs = () => {
               
               {/* Social Media Icons */}
               <div className="flex items-center gap-4">
-                <a 
-                  href="https://www.facebook.com/people/Clyde-Decking/100095203176792/?_rdr" 
-                  target="_blank" 
+                <a
+                  href={business.facebookUrl}
+                  target="_blank"
                   rel="noopener noreferrer"
                   className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors"
                 >
                   <Facebook className="w-6 h-6 text-white" />
                 </a>
-                <a 
-                  href="https://wa.me/447949912201" 
-                  target="_blank" 
+                <a
+                  href={business.whatsappUrl}
+                  target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackMessenger('about_section')}
                   className="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:bg-primary/10 transition-colors"

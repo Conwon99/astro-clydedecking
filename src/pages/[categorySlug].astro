@@ -1,0 +1,142 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
+import Providers from '@/components/Providers';
+import CategoryHero from '@/components/CategoryHero';
+import BreadcrumbSchema from '@/components/BreadcrumbSchema.astro';
+import { categories } from '@/data/categories';
+import { getServicesForCategory } from '@/data/services';
+import { locations } from '@/data/locations';
+import { getLocationServicePath } from '@/data/locationServices';
+import { business, absoluteUrl } from '@/data/business';
+import LazyImage from '@/components/LazyImage';
+
+export function getStaticPaths() {
+  return categories.map((category) => ({
+    params: { categorySlug: category.slug },
+    props: { category },
+  }));
+}
+
+const { category } = Astro.props;
+const categoryServices = getServicesForCategory(category.slug);
+const townLocations = locations.filter((l) => l.character === "town");
+const canonical = absoluteUrl(`/${category.slug}`);
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": `${canonical}#service`,
+  name: category.name,
+  description: category.description,
+  url: canonical,
+  provider: { "@id": `${business.siteUrl}/#business` },
+  areaServed: { "@type": "Place", name: business.region },
+};
+---
+
+<Layout
+  title={category.title + " | Clyde Decking Solutions"}
+  description={category.description}
+  canonical={canonical}
+>
+  <Providers client:load>
+    <div class="min-h-screen bg-background">
+      <Navigation client:load />
+
+      <CategoryHero client:load name={category.name} intro={category.intro} image={category.image} imageAlt={category.imageAlt} />
+
+      {/* Category services */}
+      <section class="py-20 px-4 bg-white">
+        <div class="container mx-auto max-w-6xl">
+          <div class="text-center mb-16">
+            <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground mb-6">
+              {category.name} Services
+            </h2>
+            <p class="text-xl text-muted-foreground max-w-3xl mx-auto">{category.localParagraph}</p>
+          </div>
+
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {categoryServices.map((service) => (
+              <a href={`/services/${service.slug}`} class="group block bg-muted/50 rounded-xl overflow-hidden hover:shadow-xl transition-shadow">
+                <div class="aspect-video overflow-hidden">
+                  <LazyImage client:load src={service.image} alt={service.imageAlt} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                </div>
+                <div class="p-6">
+                  <h3 class="text-xl font-semibold text-foreground mb-3">{service.title}</h3>
+                  <p class="text-muted-foreground">{service.cardDescription}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Category by area */}
+      <section class="py-20 px-4 bg-muted/30">
+        <div class="container mx-auto max-w-6xl">
+          <div class="text-center mb-16">
+            <h2 class="font-display text-3xl md:text-4xl font-bold text-foreground mb-6">
+              {category.name} By Area
+            </h2>
+            <p class="text-xl text-muted-foreground max-w-3xl mx-auto">
+              We install and repair {category.name.toLowerCase()} across the Central Belt. Find your area below.
+            </p>
+          </div>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {townLocations.map((location) => (
+              <a
+                href={getLocationServicePath(location.slug, category.slug)}
+                class="flex items-center justify-center text-center p-4 rounded-lg bg-background border border-border hover:border-primary/30 hover:text-primary transition-colors font-medium"
+              >
+                {location.name}
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section class="py-20 px-4 bg-primary text-white">
+        <div class="container mx-auto max-w-4xl text-center">
+          <h2 class="font-display text-3xl md:text-4xl font-bold mb-6">
+            Ready for {category.name}?
+          </h2>
+          <p class="text-xl text-white/90 mb-8">
+            Get a free quote for professional {category.name.toLowerCase()} across Glasgow and the Central Belt.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a
+              href="/contact"
+              class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary hover:bg-gray-100 font-bold text-lg rounded-xl transition-colors duration-200"
+            >
+              Get a Free Quote
+            </a>
+            <a
+              href={business.phoneTel}
+              class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-primary font-semibold text-lg rounded-xl transition-colors duration-200"
+            >
+              Call {business.phoneLocal}
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <Footer client:load />
+    </div>
+  </Providers>
+</Layout>
+
+<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+<BreadcrumbSchema items={[
+  { name: 'Home', href: '/' },
+  { name: category.name, href: `/${category.slug}` },
+]} />
+
+<script>
+  import { trackPageView } from '@/utils/analytics';
+  if (typeof window !== 'undefined') {
+    trackPageView(window.location.pathname, document.title);
+  }
+</script>

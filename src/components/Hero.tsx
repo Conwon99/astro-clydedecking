@@ -1,5 +1,6 @@
 import { MapPin, Star, ArrowRight } from "lucide-react";
 import LazyImage from "@/components/LazyImage";
+import { business } from "@/data/business";
 
 const Hero = () => {
   const handleQuoteClick = () => {
@@ -84,7 +85,7 @@ const Hero = () => {
             {/* 5-Star Review Component */}
             <div className="pt-4">
               <a
-                href="https://www.facebook.com/profile.php?id=100095062849831&sk=reviews"
+                href={business.facebookUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex flex-col sm:flex-row items-center gap-3 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-6 py-4 hover:bg-white/20 transition-all duration-300 hover:scale-105 group"

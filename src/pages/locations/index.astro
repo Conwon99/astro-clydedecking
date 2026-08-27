@@ -1,0 +1,98 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
+import Providers from '@/components/Providers';
+import BreadcrumbSchema from '@/components/BreadcrumbSchema.astro';
+import { MapPin } from 'lucide-react';
+import { locations } from '@/data/locations';
+import { business, absoluteUrl } from '@/data/business';
+
+const townLocations = locations.filter((l) => l.character === "town");
+const glasgowDistricts = locations.filter((l) => l.character === "glasgowDistrict");
+---
+
+<Layout
+  title="Areas We Cover | Clyde Decking Solutions"
+  description="Clyde Decking installs and repairs composite decking, timber decking, fencing and custom outdoor structures across Glasgow, Edinburgh, Stirling and Scotland's Central Belt."
+  canonical={absoluteUrl('/locations')}
+>
+  <Providers client:load>
+    <div class="min-h-screen bg-background">
+      <Navigation client:load />
+
+      <section class="relative py-24 px-4 pt-32 bg-gradient-to-br from-primary/10 via-primary/5 to-background">
+        <div class="container mx-auto max-w-6xl text-center">
+          <h1 class="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
+            Areas We <span class="text-primary">Cover</span>
+          </h1>
+          <p class="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            Clyde Decking installs and repairs composite decking, timber decking, fencing and custom outdoor
+            structures across Glasgow, Edinburgh, Stirling and Scotland's Central Belt.
+          </p>
+        </div>
+      </section>
+
+      <section class="py-16 px-4 bg-white">
+        <div class="container mx-auto max-w-6xl">
+          <h2 class="font-display text-3xl font-bold text-foreground mb-8">Towns We Serve</h2>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 mb-16">
+            {townLocations.map((location) => (
+              <a
+                href={`/locations/${location.slug}`}
+                class="flex items-center gap-2 p-4 rounded-lg bg-background border border-border hover:border-primary/30 transition-colors group"
+              >
+                <MapPin client:load class="w-4 h-4 text-primary flex-shrink-0" />
+                <span class="text-foreground font-medium group-hover:text-primary transition-colors">{location.name}</span>
+              </a>
+            ))}
+          </div>
+
+          <h2 class="font-display text-3xl font-bold text-foreground mb-8">Glasgow Neighbourhoods</h2>
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {glasgowDistricts.map((location) => (
+              <a
+                href={`/locations/${location.slug}`}
+                class="flex items-center gap-2 p-4 rounded-lg bg-background border border-border hover:border-primary/30 transition-colors group"
+              >
+                <MapPin client:load class="w-4 h-4 text-primary flex-shrink-0" />
+                <span class="text-foreground font-medium group-hover:text-primary transition-colors">{location.name}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 px-4 bg-primary text-white">
+        <div class="container mx-auto max-w-4xl text-center">
+          <h2 class="font-display text-3xl md:text-4xl font-bold mb-6">Don't See Your Area?</h2>
+          <p class="text-xl text-white/90 mb-8">
+            We may still be able to help. Get in touch to discuss your project and we'll confirm coverage.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary hover:bg-gray-100 font-bold text-lg rounded-xl transition-colors duration-200">
+              Get a Free Quote
+            </a>
+            <a href={business.phoneTel} class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-primary font-semibold text-lg rounded-xl transition-colors duration-200">
+              Call {business.phoneLocal}
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <Footer client:load />
+    </div>
+  </Providers>
+</Layout>
+
+<BreadcrumbSchema items={[
+  { name: 'Home', href: '/' },
+  { name: 'Locations', href: '/locations' },
+]} />
+
+<script>
+  import { trackPageView } from '@/utils/analytics';
+  if (typeof window !== 'undefined') {
+    trackPageView(window.location.pathname, document.title);
+  }
+</script>

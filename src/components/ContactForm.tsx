@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { trackQuoteRequest, trackFormInteraction } from "@/utils/analytics";
+import { business } from "@/data/business";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -19,7 +20,7 @@ const ContactForm = () => {
     e.preventDefault();
     
     try {
-      const response = await fetch('https://formspree.io/f/xgvljren', {
+      const response = await fetch(business.formspreeEndpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

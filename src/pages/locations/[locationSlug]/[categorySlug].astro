@@ -1,0 +1,185 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
+import Providers from '@/components/Providers';
+import LocationHero from '@/components/LocationHero';
+import BreadcrumbSchema from '@/components/BreadcrumbSchema.astro';
+import LazyImage from '@/components/LazyImage';
+import { locationServicePages, getNearbyLocationServiceLinks, getLocationServicePath } from '@/data/locationServices';
+import { getServicesForCategory } from '@/data/services';
+import { business, absoluteUrl } from '@/data/business';
+
+export function getStaticPaths() {
+  return locationServicePages.map((page) => ({
+    params: { locationSlug: page.locationSlug, categorySlug: page.categorySlug },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+const { location, category } = page;
+const relatedServices = getServicesForCategory(category.slug);
+const nearbyLinks = getNearbyLocationServiceLinks(page);
+const canonical = absoluteUrl(getLocationServicePath(location.slug, category.slug));
+
+const serviceSchema = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": `${canonical}#service`,
+  name: page.h1,
+  description: page.metaDescription,
+  url: canonical,
+  provider: { "@id": `${business.siteUrl}/#business` },
+  areaServed: { "@type": "Place", name: location.name },
+};
+
+const placeSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${canonical}#webpage`,
+  name: page.title,
+  description: page.metaDescription,
+  url: canonical,
+  about: { "@type": "Place", name: location.name },
+};
+
+const faqSchema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: page.faqs.map((faq) => ({
+    "@type": "Question",
+    name: faq.question,
+    acceptedAnswer: { "@type": "Answer", text: faq.answer },
+  })),
+};
+---
+
+<Layout
+  title={page.title}
+  description={page.metaDescription}
+  canonical={canonical}
+>
+  <Providers client:load>
+    <div class="min-h-screen bg-background">
+      <Navigation client:load />
+
+      <LocationHero
+        client:load
+        name={location.name}
+        eyebrow={category.name}
+        intro={page.intro}
+        trackSource={`matrix_${location.slug}_${category.slug}`}
+      />
+
+      {/* Why choose us */}
+      <section class="py-16 px-4 bg-white">
+        <div class="container mx-auto max-w-6xl">
+          <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 class="font-display font-bold text-3xl text-foreground mb-6">
+                Why Choose Clyde Decking in {location.name}
+              </h2>
+              <p class="text-lg text-muted-foreground mb-6">{page.bodyParagraph}</p>
+              <p class="text-lg text-muted-foreground">{page.localParagraph}</p>
+            </div>
+            <div class="rounded-2xl overflow-hidden shadow-lg">
+              <LazyImage client:load src={category.image} alt={category.imageAlt} className="w-full h-auto" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Related services */}
+      <section class="py-16 px-4 bg-muted/30">
+        <div class="container mx-auto max-w-6xl">
+          <h2 class="font-display font-bold text-3xl text-foreground mb-8">
+            {category.name} Services in {location.name}
+          </h2>
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {relatedServices.map((service) => (
+              <a href={`/services/${service.slug}`} class="group block bg-white rounded-xl overflow-hidden shadow hover:shadow-xl transition-shadow">
+                <div class="aspect-video overflow-hidden">
+                  <LazyImage client:load src={service.image} alt={service.imageAlt} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" />
+                </div>
+                <div class="p-6">
+                  <h3 class="text-xl font-semibold text-foreground mb-2">{service.title}</h3>
+                  <p class="text-muted-foreground">{service.cardDescription}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+
+          {nearbyLinks.length > 0 && (
+            <>
+              <h3 class="font-display font-bold text-2xl text-foreground mb-4">
+                {category.name} in Nearby Areas
+              </h3>
+              <div class="flex flex-wrap gap-3">
+                {nearbyLinks.map((link) => (
+                  <a href={link.href} class="px-4 py-2 rounded-full bg-background border border-border hover:border-primary/30 hover:text-primary transition-colors text-sm font-medium">
+                    {link.name}
+                  </a>
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      </section>
+
+      {/* FAQs */}
+      <section class="py-16 px-4 bg-white">
+        <div class="container mx-auto max-w-4xl">
+          <h2 class="font-display font-bold text-3xl text-foreground mb-8 text-center">
+            {category.name} in {location.name}: FAQs
+          </h2>
+          <div class="space-y-4">
+            {page.faqs.map((faq) => (
+              <div class="bg-muted/50 rounded-lg p-6">
+                <h3 class="font-semibold text-lg text-foreground mb-2">{faq.question}</h3>
+                <p class="text-muted-foreground">{faq.answer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section class="py-16 px-4 bg-primary text-white">
+        <div class="container mx-auto max-w-4xl text-center">
+          <h2 class="font-display font-bold text-4xl mb-4">
+            Ready for {category.name} in {location.name}?
+          </h2>
+          <p class="text-xl mb-8 opacity-90">Get your free, no-obligation quote today.</p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary rounded-full font-semibold hover:bg-gray-100 transition-colors">
+              Get a Free Quote
+            </a>
+            <a href={business.phoneTel} class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-primary transition-colors">
+              Call {business.phoneLocal}
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <Footer client:load />
+    </div>
+  </Providers>
+</Layout>
+
+<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(placeSchema)} />
+<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+<BreadcrumbSchema items={[
+  { name: 'Home', href: '/' },
+  { name: 'Locations', href: '/locations' },
+  { name: location.name, href: `/locations/${location.slug}` },
+  { name: category.name, href: getLocationServicePath(location.slug, category.slug) },
+]} />
+
+<script>
+  import { trackPageView } from '@/utils/analytics';
+  if (typeof window !== 'undefined') {
+    trackPageView(window.location.pathname, document.title);
+  }
+</script>

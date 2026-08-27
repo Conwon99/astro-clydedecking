@@ -1,54 +1,55 @@
-# Maple Tree & Gardening Services
+# Clyde Decking Solutions
 
-Professional garden maintenance, tree surgery, and landscaping services in Troon, Ayrshire, and across Scotland.
+Website for Clyde Decking Solutions Ltd - composite decking, timber decking, fencing installation & repairs, and custom outdoor structures across Glasgow, Edinburgh, Stirling and Scotland's Central Belt.
 
-## About Us
+## Site structure
 
-Maple Tree & Gardening Services is a fully qualified and experienced gardening business serving Troon, Ayr, Prestwick, and the wider Ayrshire area. With over 15 years of experience, we provide:
+The site is data-driven: page content lives in `src/data/*.ts` and a handful of dynamic Astro routes generate every page from it.
 
-- **Tree Surgery & Removal** - Fully Qualified Arborist services
-- **Lawn Mowing & Grass Cutting** - Professional lawn care
-- **Hedge Cutting & Trimming** - Expert hedge maintenance
-- **Garden Strimming & Edging** - Precision edge work
-- **Pesticide Applications** - PA1 & PA6 certified professional
+- `src/data/business.ts` - NAP (name, address, phone), site URL, social links, analytics ID
+- `src/data/services.ts` - the 5 services (composite decking, wooden decking, fencing installation, fence repairs, custom outdoor structures)
+- `src/data/categories.ts` - the 4 service categories (Composite Decking, Timber Decking, Fencing, Outdoor Structures)
+- `src/data/locations.ts` - towns and Glasgow neighbourhoods covered
+- `src/data/locationServices.ts` - the location x category matrix (long-tail SEO pages)
+- `src/data/testimonials.ts` / `src/data/faqs.ts` - reviews and FAQ content
 
-## Our Qualifications
+Routes:
 
-- ✅ **15+ Years Experience** in garden services
-- ✅ **Fully Qualified Arborist** 
-- ✅ **PA1 & PA6 Pesticide Professional** - Properly trained and certified
-- ✅ **Fully Insured** and professional service
-- ✅ **500+ Happy Customers** across Ayrshire
-
-## Contact Information
-
-- **Phone**: 07853 224528
-- **Areas Served**: Troon, Ayr, Prestwick, and across Ayrshire
-- **Services**: Free quotes available for all garden work
+- `/` - homepage
+- `/services`, `/services/[slug]` - services hub and individual service pages
+- `/[categorySlug]` - category hub pages (e.g. `/composite-decking`)
+- `/locations`, `/locations/[slug]` - areas hub and individual location pages
+- `/locations/[locationSlug]/[categorySlug]` - location x category pages
+- `/contact`, `/404`, `/sitemap.xml`
 
 ## Technology
 
-This website is built with:
-- React + TypeScript
-- Vite build tool
-- Tailwind CSS
-- Shadcn/ui components
+- [Astro](https://astro.build) (static output) with [React](https://react.dev) islands
+- [Tailwind CSS](https://tailwindcss.com) + [shadcn/ui](https://ui.shadcn.com) components
+- Deployed on Netlify
 
 ## Development
-
-To run this project locally:
 
 ```bash
 npm install
 npm run dev
 ```
 
-To build for production:
+Build for production:
 
 ```bash
 npm run build
 ```
 
+Other scripts:
+
+```bash
+npm run lint        # eslint
+npm run preview     # preview the production build
+npm run convert-images  # convert images in public/ to webp
+npm run optimize    # convert-images + build
+```
+
 ## License
 
-© 2024 Maple Tree & Gardening Services. All rights reserved.
+© 2026 Clyde Decking Solutions Ltd. All rights reserved.
