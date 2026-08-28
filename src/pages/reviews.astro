@@ -1,0 +1,132 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
+import Providers from '@/components/Providers';
+import BreadcrumbSchema from '@/components/BreadcrumbSchema.astro';
+import { Star } from 'lucide-react';
+import { business, absoluteUrl } from '@/data/business';
+import {
+  testimonials,
+  getVerifiedTestimonials,
+  TOTAL_VERIFIED_REVIEW_COUNT,
+  AVERAGE_VERIFIED_RATING,
+} from '@/data/testimonials';
+
+const canonical = absoluteUrl('/reviews');
+const title = `Reviews | ${business.businessName}`;
+const description = `Read what customers across Glasgow, Edinburgh and the Central Belt say about Clyde Decking's composite decking, timber decking and fencing work.`;
+
+// Only genuinely verified reviews feed the schema - see src/data/testimonials.ts
+const verifiedReviews = getVerifiedTestimonials();
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${canonical}#webpage`,
+  name: title,
+  description,
+  url: canonical,
+  inLanguage: "en-GB",
+};
+
+// aggregateRating already lives on the global LocalBusiness schema (Layout.astro,
+// sourced from the same TOTAL_VERIFIED_REVIEW_COUNT/AVERAGE_VERIFIED_RATING
+// constants) - here we only add the individual Review nodes, each pointing back
+// at the business via @id rather than duplicating the LocalBusiness node.
+const reviewSchemas = verifiedReviews.map((review) => ({
+  "@context": "https://schema.org",
+  "@type": "Review",
+  itemReviewed: { "@id": `${business.siteUrl}/#business` },
+  author: { "@type": "Person", name: review.name },
+  reviewRating: { "@type": "Rating", ratingValue: review.rating, bestRating: "5" },
+  reviewBody: review.text,
+}));
+---
+
+<Layout title={title} description={description} canonical={canonical}>
+  <Providers client:load>
+    <div class="min-h-screen bg-background">
+      <Navigation client:load />
+
+      <main id="main-content">
+
+      <section class="relative py-24 px-4 pt-32 bg-gradient-to-br from-primary/10 via-primary/5 to-background">
+        <div class="container mx-auto max-w-4xl text-center">
+          <h1 class="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
+            Customer <span class="text-primary">Reviews</span>
+          </h1>
+          {verifiedReviews.length > 0 && (
+            <div class="flex items-center justify-center gap-2 mb-6">
+              {Array.from({ length: 5 }).map(() => (
+                <Star client:load class="w-6 h-6 text-accent fill-current" />
+              ))}
+              <span class="text-lg font-semibold text-foreground ml-2">
+                {AVERAGE_VERIFIED_RATING} out of 5 ({TOTAL_VERIFIED_REVIEW_COUNT} reviews)
+              </span>
+            </div>
+          )}
+          <p class="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+            See what customers across Glasgow, Edinburgh, Stirling and the Central Belt say about our decking and fencing work.
+          </p>
+        </div>
+      </section>
+
+      <section class="py-16 px-4 bg-white">
+        <div class="container mx-auto max-w-6xl">
+          <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {testimonials.map((review) => (
+              <div class="bg-background border border-border rounded-xl p-6 shadow-sm">
+                <div class="flex items-center gap-1 mb-4">
+                  {Array.from({ length: 5 }).map(() => (
+                    <Star client:load class="w-5 h-5 text-accent fill-current" />
+                  ))}
+                </div>
+                <p class="text-muted-foreground mb-4 italic">"{review.text}"</p>
+                <div class="border-t border-border pt-4">
+                  <div class="font-semibold text-foreground">{review.name}</div>
+                  {review.locationName && <div class="text-sm text-muted-foreground">{review.locationName}</div>}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="py-20 px-4 bg-primary text-white">
+        <div class="container mx-auto max-w-4xl text-center">
+          <h2 class="font-display text-3xl md:text-4xl font-bold mb-6">Ready to Join Our Happy Customers?</h2>
+          <p class="text-xl text-white/90 mb-8">Get a free, no-obligation quote for your decking or fencing project.</p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/contact" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary hover:bg-gray-100 font-bold text-lg rounded-xl transition-colors duration-200">
+              Get a Free Quote
+            </a>
+            <a href={business.phoneTel} class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white hover:bg-white hover:text-primary font-semibold text-lg rounded-xl transition-colors duration-200">
+              Call {business.phoneLocal}
+            </a>
+          </div>
+        </div>
+      </section>
+
+      </main>
+
+      <Footer client:load />
+    </div>
+  </Providers>
+
+  <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
+  {reviewSchemas.map((schema) => (
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  ))}
+  <BreadcrumbSchema items={[
+    { name: 'Home', href: '/' },
+    { name: 'Reviews', href: '/reviews' },
+  ]} />
+
+  <script>
+    import { trackPageView } from '@/utils/analytics';
+    if (typeof window !== 'undefined') {
+      trackPageView(window.location.pathname, document.title);
+    }
+  </script>
+</Layout>

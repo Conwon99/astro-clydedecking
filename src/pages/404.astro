@@ -5,7 +5,7 @@ import { absoluteUrl } from '@/data/business';
 
 <Layout
   title="404 - Page Not Found | Clyde Decking"
-  description="The page you're looking for doesn't exist. Return to Clyde Decking homepage for professional decking and fencing services in Glasgow, Edinburgh, Stirling, Ayrshire & Scotland's Central Belt."
+  description="The page you're looking for doesn't exist. Return to Clyde Decking's homepage for decking and fencing services across Glasgow and the Central Belt."
   canonical={absoluteUrl('/404')}
   robots="noindex, follow"
 >
@@ -36,12 +36,12 @@ import { absoluteUrl } from '@/data/business';
       </div>
     </div>
   </div>
+
+  <script>
+    import { trackPageView } from '@/utils/analytics';
+
+    if (typeof window !== 'undefined') {
+      trackPageView(window.location.pathname, document.title);
+    }
+  </script>
 </Layout>
-
-<script>
-  import { trackPageView } from '@/utils/analytics';
-
-  if (typeof window !== 'undefined') {
-    trackPageView(window.location.pathname, document.title);
-  }
-</script>

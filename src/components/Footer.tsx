@@ -2,7 +2,17 @@ import { Phone, Mail, MapPin, Facebook } from "lucide-react";
 import { trackExternalLink } from "@/utils/analytics";
 import { business } from "@/data/business";
 import { services } from "@/data/services";
+import { categories } from "@/data/categories";
 import { locations } from "@/data/locations";
+import { getLocationServicePath } from "@/data/locationServices";
+
+// A handful of top town x category links for the footer - concrete examples
+// of the location x category matrix, not the full 72-page list.
+const topMatrixLinks = [
+  { name: "Composite Decking in Glasgow", href: getLocationServicePath("glasgow", "composite-decking") },
+  { name: "Fencing in Edinburgh", href: getLocationServicePath("edinburgh", "fencing") },
+  { name: "Timber Decking in Stirling", href: getLocationServicePath("stirling", "timber-decking") },
+];
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -20,7 +30,7 @@ const Footer = () => {
               </h3>
               <p className="text-white leading-relaxed">
                 Trusted provider of composite and wooden decking and fencing solutions across Scotland.
-                Our skilled joiners are experts in all aspects of joinery work, ensuring every project is completed to the highest standards with a focus on functionality and aesthetics.
+                Our skilled joiners are experts in all aspects of joinery work, ensuring every project is completed to the highest standards.
               </p>
             </div>
 
@@ -38,6 +48,32 @@ const Footer = () => {
                 <span className="text-white">Scotland and surrounding areas</span>
               </div>
             </div>
+
+            <a
+              href={business.facebookUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => trackExternalLink(business.facebookUrl, 'Facebook')}
+              className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors"
+            >
+              <Facebook className="w-5 h-5" />
+              <span>Follow us on Facebook</span>
+            </a>
+          </div>
+
+          {/* Quick Links */}
+          <div>
+            <h4 className="font-display text-xl font-bold text-white mb-6">
+              Quick Links
+            </h4>
+            <ul className="space-y-3 text-white">
+              <li><a href="/" className="hover:text-gray-300 transition-colors">• Home</a></li>
+              <li><a href="/services" className="hover:text-gray-300 transition-colors">• Services</a></li>
+              <li><a href="/locations" className="hover:text-gray-300 transition-colors">• Locations</a></li>
+              <li><a href="/about" className="hover:text-gray-300 transition-colors">• About</a></li>
+              <li><a href="/reviews" className="hover:text-gray-300 transition-colors">• Reviews</a></li>
+              <li><a href="/contact" className="hover:text-gray-300 transition-colors">• Contact</a></li>
+            </ul>
           </div>
 
           {/* Services */}
@@ -45,7 +81,16 @@ const Footer = () => {
             <h4 className="font-display text-xl font-bold text-white mb-6">
               Our Services
             </h4>
-            <ul className="space-y-3 text-white">
+            <ul className="space-y-2 text-white text-sm">
+              {categories.map((category) => (
+                <li key={category.slug}>
+                  <a href={`/${category.slug}`} className="hover:text-gray-300 transition-colors font-semibold">
+                    • {category.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <ul className="space-y-2 text-white/80 text-sm mt-3 pt-3 border-t border-white/10">
               {services.map((service) => (
                 <li key={service.slug}>
                   <a href={`/services/${service.slug}`} className="hover:text-gray-300 transition-colors">
@@ -61,45 +106,27 @@ const Footer = () => {
             <h4 className="font-display text-xl font-bold text-white mb-6">
               Service Areas
             </h4>
-            <ul className="space-y-3 text-white">
+            <ul className="space-y-2 text-white text-sm">
               {townLocations.map((location) => (
                 <li key={location.slug}>
                   <a href={`/locations/${location.slug}`} className="hover:text-gray-300 transition-colors">
-                    • Decking & Fencing in {location.name}
+                    • {location.name}
                   </a>
                 </li>
               ))}
-              <li>
-                <a href="/locations" className="hover:text-gray-300 transition-colors font-semibold">
-                  • View all areas we cover
-                </a>
-              </li>
             </ul>
-          </div>
-
-          {/* About Us */}
-          <div>
-            <h4 className="font-display text-xl font-bold text-white mb-6">
-              About Us
-            </h4>
-            <p className="text-white leading-relaxed mb-6">
-              We are a trusted provider of composite and wooden decking and fencing solutions. Our skilled joiners
-              are experts in all aspects of joinery work, ensuring every project is completed to the highest standards.
-              We believe in combining functionality with aesthetics to create beautiful, durable outdoor spaces.
-            </p>
-
-            <div className="flex items-center gap-4">
-              <a
-                href={business.facebookUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => trackExternalLink(business.facebookUrl, 'Facebook')}
-                className="flex items-center gap-2 text-white hover:text-gray-300 transition-colors"
-              >
-                <Facebook className="w-5 h-5" />
-                <span>Follow us on Facebook</span>
-              </a>
-            </div>
+            <ul className="space-y-2 text-white/80 text-sm mt-3 pt-3 border-t border-white/10">
+              {topMatrixLinks.map((link) => (
+                <li key={link.href}>
+                  <a href={link.href} className="hover:text-gray-300 transition-colors">
+                    • {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+            <a href="/locations" className="inline-block mt-3 text-white hover:text-gray-300 transition-colors font-semibold text-sm">
+              View all areas we cover →
+            </a>
           </div>
         </div>
 

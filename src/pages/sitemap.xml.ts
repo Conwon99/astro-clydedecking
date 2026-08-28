@@ -12,32 +12,35 @@ interface SitemapEntry {
   priority: string;
 }
 
+// Priorities follow SEO-MASTER-GUIDE.txt Part 4's page-architecture table.
 function buildEntries(): SitemapEntry[] {
   const today = new Date().toISOString().split("T")[0];
   const entries: SitemapEntry[] = [
     { loc: absoluteUrl("/"), changefreq: "weekly", priority: "1.0" },
-    { loc: absoluteUrl("/services"), changefreq: "weekly", priority: "0.9" },
-    { loc: absoluteUrl("/locations"), changefreq: "weekly", priority: "0.8" },
-    { loc: absoluteUrl("/contact"), changefreq: "monthly", priority: "0.8" },
+    { loc: absoluteUrl("/services"), changefreq: "monthly", priority: "0.7" },
+    { loc: absoluteUrl("/locations"), changefreq: "monthly", priority: "0.75" },
+    { loc: absoluteUrl("/about"), changefreq: "monthly", priority: "0.5" },
+    { loc: absoluteUrl("/contact"), changefreq: "monthly", priority: "0.5" },
+    { loc: absoluteUrl("/reviews"), changefreq: "monthly", priority: "0.75" },
   ];
 
   for (const category of categories) {
-    entries.push({ loc: absoluteUrl(`/${category.slug}`), changefreq: "weekly", priority: "0.8" });
+    entries.push({ loc: absoluteUrl(`/${category.slug}`), changefreq: "monthly", priority: "0.8" });
   }
 
   for (const service of services) {
-    entries.push({ loc: absoluteUrl(`/services/${service.slug}`), changefreq: "monthly", priority: "0.8" });
+    entries.push({ loc: absoluteUrl(`/services/${service.slug}`), changefreq: "monthly", priority: "0.85" });
   }
 
   for (const location of locations) {
-    entries.push({ loc: absoluteUrl(`/locations/${location.slug}`), changefreq: "monthly", priority: "0.7" });
+    entries.push({ loc: absoluteUrl(`/locations/${location.slug}`), changefreq: "monthly", priority: "0.8" });
   }
 
   for (const page of locationServicePages) {
     entries.push({
       loc: absoluteUrl(getLocationServicePath(page.locationSlug, page.categorySlug)),
       changefreq: "monthly",
-      priority: "0.6",
+      priority: "0.75",
     });
   }
 

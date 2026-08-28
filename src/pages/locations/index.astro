@@ -10,16 +10,28 @@ import { business, absoluteUrl } from '@/data/business';
 
 const townLocations = locations.filter((l) => l.character === "town");
 const glasgowDistricts = locations.filter((l) => l.character === "glasgowDistrict");
+
+const canonical = absoluteUrl('/locations');
+const title = `Areas We Cover | ${business.alternateName}`;
+const description = "Clyde Decking installs and repairs composite decking, timber decking and fencing across Glasgow, Edinburgh, Stirling and the Central Belt area.";
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${canonical}#webpage`,
+  name: title,
+  description,
+  url: canonical,
+  inLanguage: "en-GB",
+};
 ---
 
-<Layout
-  title="Areas We Cover | Clyde Decking Solutions"
-  description="Clyde Decking installs and repairs composite decking, timber decking, fencing and custom outdoor structures across Glasgow, Edinburgh, Stirling and Scotland's Central Belt."
-  canonical={absoluteUrl('/locations')}
->
+<Layout title={title} description={description} canonical={canonical}>
   <Providers client:load>
     <div class="min-h-screen bg-background">
       <Navigation client:load />
+
+      <main id="main-content">
 
       <section class="relative py-24 px-4 pt-32 bg-gradient-to-br from-primary/10 via-primary/5 to-background">
         <div class="container mx-auto max-w-6xl text-center">
@@ -80,19 +92,22 @@ const glasgowDistricts = locations.filter((l) => l.character === "glasgowDistric
         </div>
       </section>
 
+      </main>
+
       <Footer client:load />
     </div>
   </Providers>
+
+  <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
+  <BreadcrumbSchema items={[
+    { name: 'Home', href: '/' },
+    { name: 'Locations', href: '/locations' },
+  ]} />
+
+  <script>
+    import { trackPageView } from '@/utils/analytics';
+    if (typeof window !== 'undefined') {
+      trackPageView(window.location.pathname, document.title);
+    }
+  </script>
 </Layout>
-
-<BreadcrumbSchema items={[
-  { name: 'Home', href: '/' },
-  { name: 'Locations', href: '/locations' },
-]} />
-
-<script>
-  import { trackPageView } from '@/utils/analytics';
-  if (typeof window !== 'undefined') {
-    trackPageView(window.location.pathname, document.title);
-  }
-</script>

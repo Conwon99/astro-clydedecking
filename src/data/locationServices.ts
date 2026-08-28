@@ -23,7 +23,7 @@ function buildLocationServicePage(location: LocationPage, category: ServiceCateg
     categorySlug: category.slug,
     title: category.metaTemplate(location.name),
     h1: `${category.name} in ${location.name}`,
-    metaDescription: category.metaTemplate(location.name),
+    metaDescription: category.descriptionTemplate(location.name),
     intro: category.introTemplate(location.name),
     localParagraph: category.localTemplate(location.name, nearbyNames.length ? nearbyNames : [location.name]),
     bodyParagraph: category.bodyTemplate(location.name),

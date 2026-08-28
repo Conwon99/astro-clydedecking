@@ -10,10 +10,11 @@ Disallow: /private/
 Disallow: /.git/
 Disallow: /node_modules/
 Disallow: /src/
+Disallow: /api/
 Disallow: /*.json$
 Disallow: /*.md$
 
-# Allow all major search engines
+# Search engines
 User-agent: Googlebot
 Allow: /
 
@@ -31,6 +32,16 @@ User-agent: facebookexternalhit
 Allow: /
 
 User-agent: LinkedInBot
+Allow: /
+
+# AI / LLM crawlers - allowed for brand visibility in AI products
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
 Allow: /
 
 # Sitemap location

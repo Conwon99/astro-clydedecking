@@ -21,8 +21,17 @@ export function getStaticPaths() {
 
 const { category } = Astro.props;
 const categoryServices = getServicesForCategory(category.slug);
-const townLocations = locations.filter((l) => l.character === "town");
 const canonical = absoluteUrl(`/${category.slug}`);
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${canonical}#webpage`,
+  name: category.title,
+  description: category.description,
+  url: canonical,
+  inLanguage: "en-GB",
+};
 
 const serviceSchema = {
   "@context": "https://schema.org",
@@ -37,13 +46,15 @@ const serviceSchema = {
 ---
 
 <Layout
-  title={category.title + " | Clyde Decking Solutions"}
+  title={category.title}
   description={category.description}
   canonical={canonical}
 >
   <Providers client:load>
     <div class="min-h-screen bg-background">
       <Navigation client:load />
+
+      <main id="main-content">
 
       <CategoryHero client:load name={category.name} intro={category.intro} image={category.image} imageAlt={category.imageAlt} />
 
@@ -85,7 +96,7 @@ const serviceSchema = {
             </p>
           </div>
           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-            {townLocations.map((location) => (
+            {locations.map((location) => (
               <a
                 href={getLocationServicePath(location.slug, category.slug)}
                 class="flex items-center justify-center text-center p-4 rounded-lg bg-background border border-border hover:border-primary/30 hover:text-primary transition-colors font-medium"
@@ -120,23 +131,31 @@ const serviceSchema = {
               Call {business.phoneLocal}
             </a>
           </div>
+          <p class="mt-8">
+            <a href="/services" class="text-white underline hover:no-underline font-semibold">
+              ← Back to all services
+            </a>
+          </p>
         </div>
       </section>
+
+      </main>
 
       <Footer client:load />
     </div>
   </Providers>
+
+  <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <BreadcrumbSchema items={[
+    { name: 'Home', href: '/' },
+    { name: category.name, href: `/${category.slug}` },
+  ]} />
+
+  <script>
+    import { trackPageView } from '@/utils/analytics';
+    if (typeof window !== 'undefined') {
+      trackPageView(window.location.pathname, document.title);
+    }
+  </script>
 </Layout>
-
-<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-<BreadcrumbSchema items={[
-  { name: 'Home', href: '/' },
-  { name: category.name, href: `/${category.slug}` },
-]} />
-
-<script>
-  import { trackPageView } from '@/utils/analytics';
-  if (typeof window !== 'undefined') {
-    trackPageView(window.location.pathname, document.title);
-  }
-</script>

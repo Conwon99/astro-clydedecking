@@ -41,6 +41,24 @@ export const homepageFaqs: FaqItem[] = [
   },
 ];
 
+export const contactFaqs: FaqItem[] = [
+  {
+    question: "How quickly will you respond to my quote request?",
+    answer:
+      "We aim to respond to every quote request within 24 hours with a free, no-obligation quote for your decking or fencing project.",
+  },
+  {
+    question: "Do you offer decking or fencing services near me?",
+    answer:
+      "We cover Glasgow, Edinburgh, Stirling, Ayrshire and towns right across Scotland's Central Belt. Get in touch with your postcode and we'll confirm coverage for your project.",
+  },
+  {
+    question: "What payment methods do you accept?",
+    answer:
+      "We accept cash, bank transfer and cheque. Payment details are agreed as part of your fixed, no-obligation quote before any work starts.",
+  },
+];
+
 export function buildFaqSchema(faqs: FaqItem[]) {
   return {
     "@context": "https://schema.org",

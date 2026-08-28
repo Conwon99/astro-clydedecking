@@ -23,6 +23,7 @@ export interface BusinessConfig {
   whatsappUrl: string;
   formspreeEndpoint: string;
   primaryCity: string;
+  secondaryCity: string;
   region: string;
   geoRegion: string;
   address: BusinessAddress;
@@ -32,6 +33,7 @@ export interface BusinessConfig {
   foundingDate: string;
   serviceTypes: string[];
   openingHoursSchema: string[];
+  openingHoursSpec: { days: string[]; opens: string; closes: string }[];
 }
 
 export const business: BusinessConfig = {
@@ -53,6 +55,7 @@ export const business: BusinessConfig = {
   whatsappUrl: "https://wa.me/447949912201",
   formspreeEndpoint: "https://formspree.io/f/xgvljren",
   primaryCity: "Glasgow",
+  secondaryCity: "Edinburgh",
   region: "Scotland's Central Belt",
   geoRegion: "GB-SCT",
   address: {
@@ -83,6 +86,11 @@ export const business: BusinessConfig = {
     "Sa 09:00-16:00",
     "Su 10:00-15:00",
   ],
+  openingHoursSpec: [
+    { days: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"], opens: "08:00", closes: "18:00" },
+    { days: ["Saturday"], opens: "09:00", closes: "16:00" },
+    { days: ["Sunday"], opens: "10:00", closes: "15:00" },
+  ],
 };
 
 export const SITE_URL = business.siteUrl;
@@ -99,4 +107,14 @@ export function truncateMeta(text: string, maxLength = 155): string {
 
 export function brandName(): string {
   return business.alternateName;
+}
+
+// A standard Google Maps search deep-link built from the real business name and
+// address - not a fabricated Google Business Profile ID, just a safe, always-
+// correct fallback for schema.org `hasMap` until a verified GBP URL is added.
+export function googleMapsSearchUrl(): string {
+  const query = encodeURIComponent(
+    `${business.businessName}, ${business.address.addressLocality}, ${business.address.addressCountry}`,
+  );
+  return `https://www.google.com/maps/search/?api=1&query=${query}`;
 }

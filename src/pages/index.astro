@@ -12,65 +12,73 @@ import FAQ, { faqSchema } from '@/components/FAQ';
 import ContactSection from '@/components/ContactSection';
 import Footer from '@/components/Footer';
 import Providers from '@/components/Providers';
+import { business, absoluteUrl } from '@/data/business';
+
+const canonical = absoluteUrl('/');
+const title = `${business.alternateName} | Decking & Fencing in ${business.primaryCity} & ${business.secondaryCity}`;
+const description = "Expert decking & fencing in Glasgow & Edinburgh: composite decking, timber decking, fencing installation and repairs across the Central Belt. Free quotes.";
+
+const webPageSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${canonical}#webpage`,
+  name: title,
+  description,
+  url: canonical,
+  inLanguage: "en-GB",
+  isPartOf: { "@id": `${business.siteUrl}/#website` },
+};
 ---
 
-<Layout
-  title="Clyde Decking | Decking & Fencing Services Glasgow & Central Belt"
-  description="Expert decking & fencing services in Glasgow, Edinburgh, Stirling, Ayrshire & Scotland's Central Belt. Composite & wooden decking, fencing installation & repairs. Free quotes available."
-  canonical="https://clydedeckingsolutionsltd.com/"
->
+<Layout title={title} description={description} canonical={canonical}>
   <Providers client:load>
-    <main class="min-h-screen">
+    <div class="min-h-screen">
       <Navigation client:load />
-      <Hero client:load />
-      <TrustBar client:load />
-      <AboutUs client:load />
-      <ServicesGrid client:load />
-      <Gallery client:load />
-      <ServiceAreas client:load />
-      <Reviews client:load />
-      <FAQ client:load />
-      <ContactSection client:load />
+      <main id="main-content">
+        <Hero client:load />
+        <TrustBar client:load />
+        <AboutUs client:load />
+        <ServicesGrid client:load />
+        <Gallery client:load />
+        <ServiceAreas client:load />
+        <Reviews client:load />
+        <FAQ client:load />
+        <ContactSection client:load />
+      </main>
       <Footer client:load />
-    </main>
+    </div>
   </Providers>
-</Layout>
 
-<script define:vars={{ faqSchema }} is:inline>
-  {
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.textContent = JSON.stringify(faqSchema);
-    document.head.appendChild(script);
-  }
-</script>
+  <script type="application/ld+json" set:html={JSON.stringify(webPageSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
 
-<script>
-  import { trackPageView } from '@/utils/analytics';
-  
-  if (typeof window !== 'undefined') {
-    trackPageView(window.location.pathname, document.title);
-    
-    // Handle hash anchors on page load
-    const handleHashScroll = () => {
-      const hash = window.location.hash;
-      if (hash) {
-        const sectionId = hash.substring(1); // Remove the # symbol
-        const element = document.getElementById(sectionId);
-        if (element) {
-          // Small delay to ensure page is fully loaded
-          setTimeout(() => {
-            element.scrollIntoView({ behavior: 'smooth' });
-          }, 100);
+  <script>
+    import { trackPageView } from '@/utils/analytics';
+
+    if (typeof window !== 'undefined') {
+      trackPageView(window.location.pathname, document.title);
+
+      // Handle hash anchors on page load
+      const handleHashScroll = () => {
+        const hash = window.location.hash;
+        if (hash) {
+          const sectionId = hash.substring(1); // Remove the # symbol
+          const element = document.getElementById(sectionId);
+          if (element) {
+            // Small delay to ensure page is fully loaded
+            setTimeout(() => {
+              element.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+          }
         }
-      }
-    };
-    
-    // Run on initial load
-    handleHashScroll();
-    
-    // Also handle if hash changes (e.g., browser back/forward)
-    window.addEventListener('hashchange', handleHashScroll);
-  }
-</script>
+      };
+
+      // Run on initial load
+      handleHashScroll();
+
+      // Also handle if hash changes (e.g., browser back/forward)
+      window.addEventListener('hashchange', handleHashScroll);
+    }
+  </script>
+</Layout>
 

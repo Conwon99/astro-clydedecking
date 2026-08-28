@@ -64,6 +64,8 @@ const faqSchema = {
     <div class="min-h-screen bg-background">
       <Navigation client:load />
 
+      <main id="main-content">
+
       <LocationHero
         client:load
         name={location.name}
@@ -71,6 +73,18 @@ const faqSchema = {
         intro={page.intro}
         trackSource={`matrix_${location.slug}_${category.slug}`}
       />
+
+      {/* Breadcrumb-style quick links */}
+      <section class="py-6 px-4 bg-white border-b border-border">
+        <div class="container mx-auto max-w-6xl flex flex-wrap gap-4 text-sm">
+          <a href={`/${category.slug}`} class="text-primary hover:underline font-medium">
+            ← All {category.name}
+          </a>
+          <a href={`/locations/${location.slug}`} class="text-primary hover:underline font-medium">
+            ← All services in {location.name}
+          </a>
+        </div>
+      </section>
 
       {/* Why choose us */}
       <section class="py-16 px-4 bg-white">
@@ -162,24 +176,26 @@ const faqSchema = {
         </div>
       </section>
 
+      </main>
+
       <Footer client:load />
     </div>
   </Providers>
+
+  <script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(placeSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <BreadcrumbSchema items={[
+    { name: 'Home', href: '/' },
+    { name: 'Locations', href: '/locations' },
+    { name: location.name, href: `/locations/${location.slug}` },
+    { name: category.name, href: getLocationServicePath(location.slug, category.slug) },
+  ]} />
+
+  <script>
+    import { trackPageView } from '@/utils/analytics';
+    if (typeof window !== 'undefined') {
+      trackPageView(window.location.pathname, document.title);
+    }
+  </script>
 </Layout>
-
-<script type="application/ld+json" set:html={JSON.stringify(serviceSchema)} />
-<script type="application/ld+json" set:html={JSON.stringify(placeSchema)} />
-<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-<BreadcrumbSchema items={[
-  { name: 'Home', href: '/' },
-  { name: 'Locations', href: '/locations' },
-  { name: location.name, href: `/locations/${location.slug}` },
-  { name: category.name, href: getLocationServicePath(location.slug, category.slug) },
-]} />
-
-<script>
-  import { trackPageView } from '@/utils/analytics';
-  if (typeof window !== 'undefined') {
-    trackPageView(window.location.pathname, document.title);
-  }
-</script>

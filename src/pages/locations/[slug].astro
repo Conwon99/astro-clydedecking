@@ -58,6 +58,8 @@ const faqSchema = {
     <div class="min-h-screen bg-background">
       <Navigation client:load />
 
+      <main id="main-content">
+
       <LocationHero client:load name={location.name} intro={location.intro} trackSource={`location_${location.slug}`} />
 
       {/* Services in this area */}
@@ -152,22 +154,24 @@ const faqSchema = {
         </div>
       </section>
 
+      </main>
+
       <Footer client:load />
     </div>
   </Providers>
+
+  <script type="application/ld+json" set:html={JSON.stringify(placeSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
+  <BreadcrumbSchema items={[
+    { name: 'Home', href: '/' },
+    { name: 'Locations', href: '/locations' },
+    { name: location.name, href: `/locations/${location.slug}` },
+  ]} />
+
+  <script>
+    import { trackPageView } from '@/utils/analytics';
+    if (typeof window !== 'undefined') {
+      trackPageView(window.location.pathname, document.title);
+    }
+  </script>
 </Layout>
-
-<script type="application/ld+json" set:html={JSON.stringify(placeSchema)} />
-<script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />
-<BreadcrumbSchema items={[
-  { name: 'Home', href: '/' },
-  { name: 'Locations', href: '/locations' },
-  { name: location.name, href: `/locations/${location.slug}` },
-]} />
-
-<script>
-  import { trackPageView } from '@/utils/analytics';
-  if (typeof window !== 'undefined') {
-    trackPageView(window.location.pathname, document.title);
-  }
-</script>

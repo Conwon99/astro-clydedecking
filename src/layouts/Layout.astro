@@ -1,7 +1,8 @@
 ---
 import PhoneTrackingInit from '@/components/PhoneTrackingInit';
-import { business, absoluteUrl, truncateMeta } from '@/data/business';
+import { business, absoluteUrl, truncateMeta, googleMapsSearchUrl } from '@/data/business';
 import { locations } from '@/data/locations';
+import { TOTAL_VERIFIED_REVIEW_COUNT, AVERAGE_VERIFIED_RATING } from '@/data/testimonials';
 
 interface Props {
   title?: string;
@@ -12,7 +13,7 @@ interface Props {
 }
 
 const {
-  title = `${business.alternateName} | ${business.tagline}`,
+  title = `${business.alternateName} | Decking & Fencing in ${business.primaryCity} & ${business.secondaryCity}`,
   description = truncateMeta(business.description),
   canonical = absoluteUrl('/'),
   image = absoluteUrl(business.logo),
@@ -55,6 +56,24 @@ const localBusinessSchema = {
   })),
   serviceType: business.serviceTypes,
   openingHours: business.openingHoursSchema,
+  openingHoursSpecification: business.openingHoursSpec.map((spec) => ({
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: spec.days,
+    opens: spec.opens,
+    closes: spec.closes,
+  })),
+  hasMap: googleMapsSearchUrl(),
+  ...(TOTAL_VERIFIED_REVIEW_COUNT > 0
+    ? {
+        aggregateRating: {
+          "@type": "AggregateRating",
+          ratingValue: AVERAGE_VERIFIED_RATING,
+          reviewCount: TOTAL_VERIFIED_REVIEW_COUNT,
+          bestRating: "5",
+          worstRating: "1",
+        },
+      }
+    : {}),
   priceRange: "$$",
   image: [
     absoluteUrl(business.logo),
@@ -141,6 +160,7 @@ const websiteSchema = {
   "@id": websiteId,
   name: business.alternateName,
   url: absoluteUrl('/'),
+  inLanguage: "en-GB",
   publisher: { "@id": businessId },
 };
 ---
@@ -164,6 +184,11 @@ const websiteSchema = {
 
     <!-- Canonical URL -->
     <link rel="canonical" href={currentUrl} />
+
+    <!-- Hreflang: single UK canonical URL -->
+    <link rel="alternate" hreflang="en-gb" href={currentUrl} />
+    <link rel="alternate" hreflang="en" href={currentUrl} />
+    <link rel="alternate" hreflang="x-default" href={currentUrl} />
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="/cds - Edited.png" />
@@ -189,13 +214,14 @@ const websiteSchema = {
     <!-- Open Graph Meta Tags -->
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image:width" content="800" />
-    <meta property="og:image:height" content="800" />
+    <meta property="og:image:width" content="1024" />
+    <meta property="og:image:height" content="749" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content={currentUrl} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:alt" content={`${business.businessName} Logo`} />
     <meta property="og:site_name" content={business.alternateName} />
+    <meta property="og:locale" content="en_GB" />
 
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image" />
@@ -213,6 +239,12 @@ const websiteSchema = {
     <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
   </head>
   <body>
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-[100] focus:bg-white focus:text-primary focus:px-4 focus:py-2 focus:rounded-lg focus:font-semibold"
+    >
+      Skip to main content
+    </a>
     <slot />
     <PhoneTrackingInit client:load />
   </body>
