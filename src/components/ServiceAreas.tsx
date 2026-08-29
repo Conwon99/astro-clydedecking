@@ -18,9 +18,15 @@ const ServiceAreas = () => {
             <div className="flex-1 h-px bg-[hsl(var(--asphalt-grey))]"></div>
           </div>
           <p className="text-xl text-muted-foreground max-w-3xl">
-            We proudly serve Glasgow, Edinburgh, Stirling, Ayrshire and Scotland's Central Belt with expert decking and fencing solutions. 
+            We proudly serve Glasgow, Edinburgh, Stirling, Ayrshire and Scotland's Central Belt with expert decking and fencing solutions.
             Contact us to confirm coverage for your specific location.
           </p>
+          <a
+            href="/locations"
+            className="inline-flex items-center gap-2 mt-4 text-primary font-semibold hover:underline"
+          >
+            View all areas we cover →
+          </a>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -66,6 +72,12 @@ const ServiceAreas = () => {
                   </span>
                 </a>
               ))}
+              <a
+                href="/locations"
+                className="col-span-2 flex items-center justify-center gap-2 p-3 rounded-lg bg-primary/10 border border-primary/20 hover:bg-primary/20 transition-colors font-semibold text-primary"
+              >
+                View All Areas We Cover →
+              </a>
             </div>
 
             <div className="bg-primary/10 rounded-xl p-6 border border-primary/20">
