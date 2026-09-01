@@ -1,0 +1,108 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Navigation from '@/components/Navigation';
+import Footer from '@/components/Footer';
+import Providers from '@/components/Providers';
+import { MapPin, ArrowRight } from 'lucide-react';
+
+const locations = [
+  {
+    name: "Glasgow",
+    slug: "glasgow",
+    description: "Serving the West End, Southside, East End and surrounding Glasgow neighbourhoods with decking and fencing built for the city's tenement gardens, back courts and conservation areas.",
+  },
+  {
+    name: "Edinburgh",
+    slug: "edinburgh",
+    description: "Covering New Town, Old Town, Leith and the rest of Edinburgh, with decking and fencing that works within World Heritage restrictions and coastal weather from the Firth of Forth.",
+  },
+  {
+    name: "Stirling",
+    slug: "stirling",
+    description: "Working across Stirling city centre, Bridge of Allan, Dunblane and Bannockburn, with solutions suited to the area's hilly terrain and historic conservation areas.",
+  },
+];
+---
+
+<Layout
+  title="Areas We Cover | Glasgow, Edinburgh & Stirling | Clyde Decking Solutions"
+  description="Clyde Decking Solutions provides decking and fencing services across Glasgow, Edinburgh and Stirling. Find your area and get a free quote."
+  canonical="https://clydedeckingsolutionsltd.com/locations"
+>
+  <Providers client:load>
+    <div class="min-h-screen bg-background">
+      <Navigation client:load />
+
+      {/* Hero Section */}
+      <section class="relative py-24 px-4 pt-32 bg-gradient-to-br from-primary/10 via-primary/5 to-background">
+        <div class="container mx-auto max-w-6xl">
+          <div class="text-center mb-4">
+            <h1 class="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-foreground mb-6">
+              Areas We <span class="text-primary">Cover</span>
+            </h1>
+            <p class="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
+              Decking and fencing installers serving Glasgow, Edinburgh, Stirling and the surrounding towns of Scotland's Central Belt.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Locations Grid */}
+      <section class="py-20 px-4">
+        <div class="container mx-auto max-w-6xl">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {locations.map((location) => (
+              <a
+                href={`/${location.slug}`}
+                class="group flex flex-col bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
+              >
+                <div class="flex items-center gap-2 text-primary mb-4">
+                  <MapPin class="w-5 h-5" />
+                  <span class="font-display font-bold text-2xl text-foreground">
+                    {location.name}
+                  </span>
+                </div>
+                <p class="text-muted-foreground leading-relaxed mb-6 flex-1">
+                  {location.description}
+                </p>
+                <span class="inline-flex items-center gap-2 text-primary font-semibold group-hover:gap-3 transition-all">
+                  View {location.name} services
+                  <ArrowRight class="w-4 h-4" />
+                </span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section class="py-16 px-4 bg-primary text-white">
+        <div class="container mx-auto max-w-4xl text-center">
+          <h2 class="font-display font-bold text-4xl mb-4">
+            Not sure if we cover your area?
+          </h2>
+          <p class="text-xl mb-8 opacity-90">
+            Get in touch and we'll confirm coverage for your postcode.
+          </p>
+          <a
+            href="/contact"
+            data-track-source="locations_cta"
+            class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary rounded-full font-semibold hover:bg-gray-100 transition-colors"
+          >
+            Get a Free Quote
+          </a>
+        </div>
+      </section>
+
+      <Footer client:load />
+    </div>
+  </Providers>
+</Layout>
+
+<script>
+  import { trackPageView } from '@/utils/analytics';
+
+  if (typeof window !== 'undefined') {
+    trackPageView(window.location.pathname, document.title);
+  }
+</script>
