@@ -1,6 +1,5 @@
 import { MapPin } from "lucide-react";
-import WhatsAppIcon from "@/components/WhatsAppIcon";
-import { trackPhoneCall, trackMessenger } from "@/utils/analytics";
+import { trackQuoteRequest } from "@/utils/analytics";
 
 const ServiceAreas = () => {
   const serviceAreas = [
@@ -84,23 +83,13 @@ const ServiceAreas = () => {
                 We may be able to help with services outside our main coverage area. 
                 Contact us to discuss your specific needs and we'll do our best to accommodate you.
               </p>
-              <div className="flex flex-col sm:flex-row gap-3">
+              <div className="flex">
                 <a
-                  href="tel:+447949912201"
-                  onClick={() => trackPhoneCall('service_areas')}
-                  className="inline-flex items-center justify-center px-6 py-3 bg-primary text-white rounded-full font-semibold hover:bg-primary/90 transition-colors"
+                  href="/contact"
+                  onClick={() => trackQuoteRequest('service_areas', [])}
+                  className="inline-flex items-center justify-center px-6 py-3 bg-green-600 hover:bg-green-700 text-white rounded-full font-semibold transition-colors"
                 >
-                  Call 07949 912201
-                </a>
-                <a
-                  href="https://wa.me/447949912201"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => trackMessenger('service_areas')}
-                  className="inline-flex items-center justify-center gap-2 px-6 py-3 border-2 border-primary text-primary rounded-full font-semibold hover:bg-primary hover:text-white transition-colors"
-                >
-                  <WhatsAppIcon className="w-6 h-6" />
-                  WhatsApp Us
+                  Get a Free Quote
                 </a>
               </div>
             </div>

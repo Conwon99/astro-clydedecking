@@ -1,8 +1,8 @@
 import { Button } from "@/components/ui/button";
-import { Menu, X, Phone } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import LazyImage from "@/components/LazyImage";
-import { trackPhoneCall, trackNavigation, trackQuoteRequest } from "@/utils/analytics";
+import { trackNavigation, trackQuoteRequest } from "@/utils/analytics";
 
 const Navigation = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -23,12 +23,6 @@ const Navigation = () => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  const handleCallClick = () => {
-    trackPhoneCall('navigation');
-    // Use tracking number for runtime clicks (HTML source still has real number for SEO)
-    window.location.href = "tel:+447427570533";
-  };
 
   const scrollToSection = (sectionId: string) => {
     trackNavigation(sectionId);
@@ -140,13 +134,6 @@ const Navigation = () => {
           {/* Desktop CTA */}
           <div className="hidden md:flex items-center space-x-4">
             <button
-              onClick={handleCallClick}
-              className="flex items-center justify-center gap-2 text-primary-foreground/80 hover:text-primary-foreground px-6 py-3 lg:px-8 lg:py-4 rounded-xl font-semibold text-base lg:text-lg transition-colors duration-200"
-            >
-              <Phone className="w-5 h-5 lg:w-6 lg:h-6" />
-              07949 912201
-            </button>
-            <button
               onClick={handleQuoteClick}
               className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 lg:px-10 lg:py-5 rounded-xl font-bold text-lg lg:text-xl transition-colors duration-200"
             >
@@ -181,14 +168,6 @@ const Navigation = () => {
                 </button>
               ))}
               <div className="px-4 pt-4 border-t border-primary-foreground/20 space-y-3">
-                <Button
-                  onClick={handleCallClick}
-                  variant="ghost"
-                  className="w-full justify-start flex items-center gap-2 text-primary-foreground hover:text-primary-foreground/80"
-                >
-                  <Phone className="w-4 h-4" />
-                  Call: 07949 912201
-                </Button>
                 <Button
                   onClick={handleQuoteClick}
                   className="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-lg font-semibold text-lg"

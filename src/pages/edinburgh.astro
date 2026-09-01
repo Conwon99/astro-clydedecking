@@ -3,8 +3,7 @@ import Layout from '@/layouts/Layout.astro';
 import Providers from '@/components/Providers';
 import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
-import { Phone, ArrowRight } from 'lucide-react';
-import WhatsAppIcon from '@/components/WhatsAppIcon';
+import { ArrowRight } from 'lucide-react';
 import { services } from '@/data/services';
 
 const city = "Edinburgh";
@@ -93,42 +92,21 @@ const breadcrumbSchema = {
       <Navigation client:load />
 
       {/* Hero Section */}
-      <section class="relative py-24 px-4 pt-32 bg-gradient-to-br from-primary/10 to-primary/5">
+      <section class="relative pt-28 pb-14 px-4 bg-gradient-to-br from-primary/10 to-primary/5">
         <div class="container mx-auto max-w-5xl text-center">
-          <h1 class="font-display font-bold text-5xl lg:text-6xl text-foreground mb-6">
+          <h1 class="font-display font-bold text-3xl sm:text-4xl lg:text-6xl text-foreground mb-4">
             <span class="text-primary">Decking & Fencing</span><br />
             Services in {city}
           </h1>
-          <p class="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
+          <p class="text-base sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-6">
             {intro}
           </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="/contact"
-              data-track-source="edinburgh_hero"
-              class="inline-flex items-center justify-center px-8 py-4 bg-green-600 hover:bg-green-700 text-white rounded-full font-bold transition-colors"
-            >
-              Get a Free Quote
-            </a>
-            <a
-              href="tel:+447949912201"
-              data-track-source="edinburgh_hero"
-              class="inline-flex items-center justify-center px-8 py-4 bg-primary text-white rounded-full font-semibold hover:bg-primary/90 transition-colors phone-link"
-            >
-              <Phone class="w-5 h-5 mr-2" />
-              Call 07949 912201
-            </a>
-            <a
-              href="https://wa.me/447949912201"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-track-source="edinburgh_hero"
-              class="inline-flex items-center justify-center px-8 py-4 border-2 border-primary text-primary rounded-full font-semibold hover:bg-primary hover:text-white transition-colors whatsapp-link"
-            >
-              <WhatsAppIcon client:load class="w-5 h-5 mr-2" />
-              WhatsApp Us
-            </a>
-          </div>
+          <a
+            href="/contact"
+            class="inline-flex items-center justify-center px-8 py-4 bg-green-600 hover:bg-green-700 text-white rounded-full font-bold transition-colors"
+          >
+            Get a Free Quote
+          </a>
         </div>
       </section>
 
@@ -222,26 +200,12 @@ const breadcrumbSchema = {
           <p class="text-xl mb-8 opacity-90">
             Get your free quote today and join hundreds of satisfied {city} customers
           </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="tel:+447949912201"
-              data-track-source="edinburgh_cta"
-              class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary rounded-full font-semibold hover:bg-gray-100 transition-colors phone-link"
-            >
-              <Phone class="w-5 h-5 mr-2" />
-              Call 07949 912201
-            </a>
-            <a
-              href="https://wa.me/447949912201"
-              target="_blank"
-              rel="noopener noreferrer"
-              data-track-source="edinburgh_cta"
-              class="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white rounded-full font-semibold hover:bg-white hover:text-primary transition-colors whatsapp-link"
-            >
-              <WhatsAppIcon client:load class="w-5 h-5 mr-2" />
-              WhatsApp Us
-            </a>
-          </div>
+          <a
+            href="/contact"
+            class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary rounded-full font-bold hover:bg-gray-100 transition-colors"
+          >
+            Get a Free Quote
+          </a>
         </div>
       </section>
     </div>
@@ -254,23 +218,9 @@ const breadcrumbSchema = {
 </Layout>
 
 <script>
-  import { trackPageView, trackPhoneCall, trackMessenger } from '@/utils/analytics';
+  import { trackPageView } from '@/utils/analytics';
 
   if (typeof window !== 'undefined') {
     trackPageView(window.location.pathname, document.title);
-
-    document.querySelectorAll('.phone-link').forEach(link => {
-      link.addEventListener('click', () => {
-        const source = link.getAttribute('data-track-source') || 'unknown';
-        trackPhoneCall(source);
-      });
-    });
-
-    document.querySelectorAll('.whatsapp-link').forEach(link => {
-      link.addEventListener('click', () => {
-        const source = link.getAttribute('data-track-source') || 'unknown';
-        trackMessenger(source);
-      });
-    });
   }
 </script>

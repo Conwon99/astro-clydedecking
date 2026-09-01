@@ -1,8 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Award, Users, Clock, Home, Facebook, Truck } from "lucide-react";
 import LazyImage from "@/components/LazyImage";
-import WhatsAppIcon from "@/components/WhatsAppIcon";
-import { trackMessenger } from "@/utils/analytics";
 
 const AboutUs = () => {
   return (
@@ -30,15 +28,6 @@ const AboutUs = () => {
                   className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center hover:bg-blue-700 transition-colors"
                 >
                   <Facebook className="w-6 h-6 text-white" />
-                </a>
-                <a 
-                  href="https://wa.me/447949912201" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  onClick={() => trackMessenger('about_section')}
-                  className="w-12 h-12 bg-white rounded-full flex items-center justify-center hover:bg-primary/10 transition-colors"
-                >
-                  <WhatsAppIcon className="w-5 h-5" color="black" />
                 </a>
               </div>
             </div>

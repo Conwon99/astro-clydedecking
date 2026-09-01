@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { ChevronDown, ChevronUp } from "lucide-react";
-import { trackPhoneCall } from "@/utils/analytics";
 
 const FAQ = () => {
   const [openItems, setOpenItems] = useState<number[]>([]);
@@ -90,13 +89,6 @@ const FAQ = () => {
               Still have questions? We're here to help!
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="tel:+447949912201"
-                onClick={() => trackPhoneCall('faq_section')}
-                className="inline-flex items-center justify-center px-6 py-3 bg-[hsl(var(--primary-blue))] text-white rounded-full font-semibold hover:bg-[hsl(var(--primary-blue))]/90 transition-colors"
-              >
-                Call 07949 912201
-              </a>
               <button
                 onClick={() => window.location.href = "/contact"}
                 className="inline-flex items-center justify-center px-6 py-3 border-2 border-[hsl(var(--primary-blue))] text-[hsl(var(--primary-blue))] rounded-full font-semibold hover:bg-[hsl(var(--primary-blue))] hover:text-white transition-colors"
