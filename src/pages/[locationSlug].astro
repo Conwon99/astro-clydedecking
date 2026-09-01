@@ -19,6 +19,18 @@ const city = location.name;
 const canonical = `https://clydedeckingsolutionsltd.com/${location.slug}`;
 const otherLocations = getNearbyLocationLinks(location);
 
+/** Rotate through real project photography for the hero background — not claimed as photos of the town itself. */
+const heroImages = ["/gallery/deck1.jpg", "/gallery/deck2.jpg", "/gallery/deck3.jpg", "/gallery/Fence1.jpg"];
+const hashIndex = (input: string, modulo: number): number => {
+  let hash = 0;
+  for (let i = 0; i < input.length; i++) {
+    hash = (hash * 31 + input.charCodeAt(i)) >>> 0;
+  }
+  return hash % modulo;
+};
+const heroImage = heroImages[hashIndex(location.slug, heroImages.length)];
+const absoluteHeroImage = `https://clydedeckingsolutionsltd.com${heroImage}`;
+
 const pageSchema = {
   "@context": "https://schema.org",
   "@type": "WebPage",
@@ -26,6 +38,7 @@ const pageSchema = {
   url: canonical,
   name: location.title,
   description: location.description,
+  primaryImageOfPage: { "@type": "ImageObject", url: absoluteHeroImage },
   inLanguage: "en-GB",
 };
 const placeSchema = {
@@ -72,13 +85,16 @@ const breadcrumbSchema = {
       <Navigation client:load />
 
       {/* Hero Section */}
-      <section class="relative pt-28 pb-14 px-4 bg-gradient-to-br from-primary/10 to-primary/5">
+      <section
+        class="relative pt-28 pb-14 px-4 bg-cover bg-center"
+        style={`background-image: linear-gradient(to bottom, rgba(15,23,42,0.72), rgba(15,23,42,0.82)), url('${heroImage}')`}
+      >
         <div class="container mx-auto max-w-5xl text-center">
-          <h1 class="font-display font-bold text-3xl sm:text-4xl lg:text-6xl text-foreground mb-4">
+          <h1 class="font-display font-bold text-3xl sm:text-4xl lg:text-6xl text-white mb-4">
             <span class="text-primary">Decking & Fencing</span><br />
             Services in {city}
           </h1>
-          <p class="text-base sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-6">
+          <p class="text-base sm:text-xl text-white/90 max-w-3xl mx-auto mb-6">
             {location.intro}
           </p>
           <a
@@ -105,18 +121,28 @@ const breadcrumbSchema = {
             {services.map((service) => (
               <a
                 href={`/services/${service.slug}`}
-                class="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col"
+                class="group bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 flex flex-col"
               >
-                <h3 class="font-display font-bold text-xl text-foreground mb-2">
-                  {service.title} in {city}
-                </h3>
-                <p class="text-muted-foreground mb-4 flex-1">
-                  {service.description}
-                </p>
-                <span class="inline-flex items-center gap-2 text-primary font-semibold group-hover:gap-3 transition-all">
-                  Learn more
-                  <ArrowRight class="w-4 h-4" />
-                </span>
+                <div class="aspect-[4/3] overflow-hidden">
+                  <img
+                    src={service.image}
+                    alt={`${service.title} in ${city}`}
+                    loading="lazy"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div class="p-6 flex flex-col flex-1">
+                  <h3 class="font-display font-bold text-xl text-foreground mb-2">
+                    {service.title} in {city}
+                  </h3>
+                  <p class="text-muted-foreground mb-4 flex-1">
+                    {service.description}
+                  </p>
+                  <span class="inline-flex items-center gap-2 text-primary font-semibold group-hover:gap-3 transition-all">
+                    Learn more
+                    <ArrowRight class="w-4 h-4" />
+                  </span>
+                </div>
               </a>
             ))}
           </div>
