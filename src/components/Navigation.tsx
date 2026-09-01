@@ -81,6 +81,18 @@ const Navigation = () => {
     }
   };
 
+  const locationLinks = [
+    { label: "Glasgow", href: "/glasgow" },
+    { label: "Edinburgh", href: "/edinburgh" },
+    { label: "Stirling", href: "/stirling" },
+  ];
+
+  const handleLocationClick = (href: string) => {
+    trackNavigation(`location-${href.replace("/", "")}`);
+    setIsMenuOpen(false);
+    window.location.href = href;
+  };
+
   const navItems = [
     { label: "Home", onClick: handleHomeClick },
     { label: "Services", onClick: handleServicesClick },
@@ -119,7 +131,36 @@ const Navigation = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {navItems.map((item) => (
+            {navItems.slice(0, 2).map((item) => (
+              <button
+                key={item.label}
+                onClick={item.onClick}
+                className="text-primary-foreground hover:text-primary-foreground/80 transition-colors duration-200 font-medium"
+              >
+                {item.label}
+              </button>
+            ))}
+            <div className="relative group">
+              <button
+                className="text-primary-foreground hover:text-primary-foreground/80 transition-colors duration-200 font-medium"
+              >
+                Locations
+              </button>
+              <div className="absolute left-1/2 -translate-x-1/2 top-full pt-3 hidden group-hover:block group-focus-within:block">
+                <div className="min-w-[180px] rounded-xl border border-white/10 bg-black/95 backdrop-blur-sm p-2 shadow-lg">
+                  {locationLinks.map((location) => (
+                    <button
+                      key={location.href}
+                      onClick={() => handleLocationClick(location.href)}
+                      className="block w-full text-left px-3 py-2 rounded-lg text-primary-foreground hover:text-primary-foreground/80 hover:bg-white/5 transition-colors duration-200"
+                    >
+                      {location.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+            {navItems.slice(2).map((item) => (
               <button
                 key={item.label}
                 onClick={item.onClick}
@@ -164,7 +205,32 @@ const Navigation = () => {
         {isMenuOpen && (
           <div className="md:hidden bg-primary border-t border-primary-foreground/20">
             <div className="py-4 space-y-4">
-              {navItems.map((item) => (
+              {navItems.slice(0, 2).map((item) => (
+                <button
+                  key={item.label}
+                  onClick={item.onClick}
+                  className="block w-full text-left px-4 py-2 text-primary-foreground hover:text-primary-foreground/80 hover:bg-primary-foreground/10 transition-colors duration-200"
+                >
+                  {item.label}
+                </button>
+              ))}
+              <div className="px-4 py-2">
+                <p className="text-primary-foreground/60 text-sm font-semibold uppercase tracking-wide mb-2">
+                  Locations
+                </p>
+                <div className="space-y-1 pl-2">
+                  {locationLinks.map((location) => (
+                    <button
+                      key={location.href}
+                      onClick={() => handleLocationClick(location.href)}
+                      className="block w-full text-left py-1.5 text-primary-foreground hover:text-primary-foreground/80 transition-colors duration-200"
+                    >
+                      {location.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              {navItems.slice(2).map((item) => (
                 <button
                   key={item.label}
                   onClick={item.onClick}
