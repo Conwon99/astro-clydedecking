@@ -5,47 +5,27 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import { ArrowRight } from 'lucide-react';
 import { services } from '@/data/services';
+import { locations, getNearbyLocationLinks, type LocationPage } from '@/data/locations';
 
-const city = "Glasgow";
-const intro = "Clyde Decking Solutions installs and repairs decking and fencing across Glasgow, from West End tenement back courts and Southside villas to the larger gardens of Bearsden, Milngavie and Newton Mearns. Materials and layouts are chosen to suit Glasgow's wet climate, conservation-area restrictions and the mix of tenement and suburban housing found across the city.";
-const nearbyAreas = "West End, East End, Southside, Merchant City, Shawlands, Bearsden, Milngavie and Newton Mearns";
+export function getStaticPaths() {
+  return locations.map((location) => ({
+    params: { locationSlug: location.slug },
+    props: { location },
+  }));
+}
 
-const canonical = "https://clydedeckingsolutionsltd.com/glasgow";
-const otherLocations = [
-  { name: "Edinburgh", slug: "edinburgh" },
-  { name: "Stirling", slug: "stirling" },
-];
-
-const faqs = [
-  {
-    question: "Do you install decking and fencing in Glasgow?",
-    answer: "Yes. Clyde Decking Solutions installs and repairs both decking and fencing across Glasgow, including the West End, Southside, East End and surrounding neighbourhoods such as Bearsden, Milngavie and Newton Mearns. Free quotes are available.",
-  },
-  {
-    question: "Can you fit decking into a small tenement back court?",
-    answer: "Yes. Many Glasgow properties, particularly in the West End and Southside, have compact back courts or shared gardens rather than a full-size plot. We design decking to make efficient use of that space, including raised sections and built-in seating where useful.",
-  },
-  {
-    question: "Do you work in Glasgow's conservation areas?",
-    answer: "Yes. Glasgow has a number of conservation areas with planning restrictions on outdoor structures. We're experienced working within those requirements and can advise on what's likely to need planning permission before work starts.",
-  },
-  {
-    question: "How does Glasgow's weather affect decking material choice?",
-    answer: "Glasgow's regular rain and damp winters mean composite decking is often the lower-maintenance choice, since it resists rot, warping and algae far better than untreated timber. We can talk through composite versus timber for your specific garden and budget.",
-  },
-  {
-    question: "How do I get a decking or fencing quote in Glasgow?",
-    answer: `Call 07949 912201, WhatsApp us, or use the contact form with a brief description of the ${city} property and a few photos if you have them. Quotes are free and there's no obligation to proceed.`,
-  },
-];
+const { location } = Astro.props as { location: LocationPage };
+const city = location.name;
+const canonical = `https://clydedeckingsolutionsltd.com/${location.slug}`;
+const otherLocations = getNearbyLocationLinks(location);
 
 const pageSchema = {
   "@context": "https://schema.org",
   "@type": "WebPage",
   "@id": `${canonical}#webpage`,
   url: canonical,
-  name: "Decking & Fencing Services in Glasgow | Clyde Decking Solutions",
-  description: "Expert decking & fencing services in Glasgow. Serving West End, East End, Southside & all Glasgow areas. Composite & wooden decking, fencing installation. Free quotes available.",
+  name: location.title,
+  description: location.description,
   inLanguage: "en-GB",
 };
 const placeSchema = {
@@ -53,16 +33,16 @@ const placeSchema = {
   "@type": "Place",
   "@id": `${canonical}#place`,
   name: city,
-  description: intro,
+  description: location.intro,
   containedInPlace: {
     "@type": "AdministrativeArea",
-    name: "Scotland",
+    name: location.county,
   },
 };
 const faqSchema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: faqs.map((faq) => ({
+  mainEntity: location.faqs.map((faq) => ({
     "@type": "Question",
     name: faq.question,
     acceptedAnswer: {
@@ -83,8 +63,8 @@ const breadcrumbSchema = {
 ---
 
 <Layout
-  title="Decking & Fencing Services in Glasgow | Clyde Decking Solutions"
-  description="Expert decking & fencing services in Glasgow. Serving West End, East End, Southside & all Glasgow areas. Composite & wooden decking, fencing installation. Free quotes available."
+  title={location.title}
+  description={location.description}
   canonical={canonical}
 >
   <Providers client:load>
@@ -99,7 +79,7 @@ const breadcrumbSchema = {
             Services in {city}
           </h1>
           <p class="text-base sm:text-xl text-muted-foreground max-w-3xl mx-auto mb-6">
-            {intro}
+            {location.intro}
           </p>
           <a
             href="/contact"
@@ -118,7 +98,7 @@ const breadcrumbSchema = {
               Services in {city}
             </h2>
             <p class="text-xl text-muted-foreground max-w-3xl mx-auto">
-              Covering {nearbyAreas} and the surrounding {city} area.
+              Covering {city} ({location.postcode}) and the surrounding {location.county} area.
             </p>
           </div>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -150,12 +130,12 @@ const breadcrumbSchema = {
             Other areas we cover
           </h2>
           <div class="flex flex-wrap justify-center gap-4">
-            {otherLocations.map((location) => (
+            {otherLocations.map((nearby) => (
               <a
-                href={`/${location.slug}`}
+                href={`/${nearby.slug}`}
                 class="inline-flex items-center px-6 py-3 bg-white rounded-full font-semibold text-primary border border-primary/20 hover:bg-primary hover:text-white transition-colors"
               >
-                Decking & Fencing in {location.name}
+                Decking & Fencing in {nearby.name}
               </a>
             ))}
             <a
@@ -177,7 +157,7 @@ const breadcrumbSchema = {
             </h2>
           </div>
           <div class="space-y-4">
-            {faqs.map((faq) => (
+            {location.faqs.map((faq) => (
               <div class="bg-white rounded-2xl p-6 shadow-lg">
                 <h3 class="font-semibold text-lg text-foreground mb-2">
                   {faq.question}
@@ -198,7 +178,7 @@ const breadcrumbSchema = {
             Ready to Transform Your {city} Garden?
           </h2>
           <p class="text-xl mb-8 opacity-90">
-            Get your free quote today and join hundreds of satisfied {city} customers
+            Get your free quote today and join our satisfied {city} customers
           </p>
           <a
             href="/contact"

@@ -87,33 +87,33 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a href="#about" className="hover:text-gray-300 transition-colors">
-                  • Decking in Scotland
+                <a href="/edinburgh" className="hover:text-gray-300 transition-colors">
+                  • Decking & Fencing in Edinburgh
                 </a>
               </li>
               <li>
-                <a href="#about" className="hover:text-gray-300 transition-colors">
-                  • Fencing in Scotland
+                <a href="/stirling" className="hover:text-gray-300 transition-colors">
+                  • Decking & Fencing in Stirling
                 </a>
               </li>
               <li>
-                <a href="#about" className="hover:text-gray-300 transition-colors">
-                  • Custom Structures Scotland
+                <a href="/ayr" className="hover:text-gray-300 transition-colors">
+                  • Decking & Fencing in Ayr
                 </a>
               </li>
               <li>
-                <a href="#about" className="hover:text-gray-300 transition-colors">
-                  • Composite Decking Scotland
+                <a href="/hamilton" className="hover:text-gray-300 transition-colors">
+                  • Decking & Fencing in Hamilton
                 </a>
               </li>
               <li>
-                <a href="#about" className="hover:text-gray-300 transition-colors">
-                  • Wooden Decking Scotland
+                <a href="/paisley" className="hover:text-gray-300 transition-colors">
+                  • Decking & Fencing in Paisley
                 </a>
               </li>
               <li>
-                <a href="#about" className="hover:text-gray-300 transition-colors">
-                  • Outdoor Structures Scotland
+                <a href="/locations" className="hover:text-gray-300 transition-colors">
+                  • View All 50 Areas We Cover
                 </a>
               </li>
             </ul>

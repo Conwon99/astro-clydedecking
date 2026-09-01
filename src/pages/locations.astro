@@ -4,24 +4,33 @@ import Navigation from '@/components/Navigation';
 import Footer from '@/components/Footer';
 import Providers from '@/components/Providers';
 import { MapPin, ArrowRight } from 'lucide-react';
+import { locations } from '@/data/locations';
 
-const locations = [
-  {
-    name: "Glasgow",
-    slug: "glasgow",
-    description: "Serving the West End, Southside, East End and surrounding Glasgow neighbourhoods with decking and fencing built for the city's tenement gardens, back courts and conservation areas.",
-  },
-  {
-    name: "Edinburgh",
-    slug: "edinburgh",
-    description: "Covering New Town, Old Town, Leith and the rest of Edinburgh, with decking and fencing that works within World Heritage restrictions and coastal weather from the Firth of Forth.",
-  },
-  {
-    name: "Stirling",
-    slug: "stirling",
-    description: "Working across Stirling city centre, Bridge of Allan, Dunblane and Bannockburn, with solutions suited to the area's hilly terrain and historic conservation areas.",
-  },
+const countyOrder = [
+  "Glasgow City",
+  "City of Edinburgh",
+  "Stirling",
+  "Renfrewshire",
+  "East Renfrewshire",
+  "South Lanarkshire",
+  "North Lanarkshire",
+  "West Dunbartonshire",
+  "East Dunbartonshire",
+  "Inverclyde",
+  "West Lothian",
+  "Falkirk",
+  "Fife",
+  "South Ayrshire",
+  "East Ayrshire",
+  "North Ayrshire",
 ];
+
+const groupedLocations = countyOrder
+  .map((county) => ({
+    county,
+    items: locations.filter((location) => location.county === county),
+  }))
+  .filter((group) => group.items.length > 0);
 ---
 
 <Layout
@@ -53,31 +62,30 @@ const locations = [
         </div>
       </section>
 
-      {/* Locations Grid */}
+      {/* Locations Grid, grouped by council area */}
       <section class="py-20 px-4">
-        <div class="container mx-auto max-w-6xl">
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {locations.map((location) => (
-              <a
-                href={`/${location.slug}`}
-                class="group flex flex-col bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300"
-              >
-                <div class="flex items-center gap-2 text-primary mb-4">
-                  <MapPin class="w-5 h-5" />
-                  <span class="font-display font-bold text-2xl text-foreground">
-                    {location.name}
-                  </span>
-                </div>
-                <p class="text-muted-foreground leading-relaxed mb-6 flex-1">
-                  {location.description}
-                </p>
-                <span class="inline-flex items-center gap-2 text-primary font-semibold group-hover:gap-3 transition-all">
-                  View {location.name} services
-                  <ArrowRight class="w-4 h-4" />
-                </span>
-              </a>
-            ))}
-          </div>
+        <div class="container mx-auto max-w-6xl space-y-14">
+          {groupedLocations.map((group) => (
+            <div>
+              <h2 class="font-display font-bold text-2xl text-foreground mb-6 flex items-center gap-2">
+                <MapPin class="w-5 h-5 text-primary" />
+                {group.county}
+              </h2>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {group.items.map((location) => (
+                  <a
+                    href={`/${location.slug}`}
+                    class="group flex items-center justify-between bg-white rounded-xl px-5 py-4 shadow-sm hover:shadow-md transition-shadow duration-300"
+                  >
+                    <span class="font-semibold text-foreground group-hover:text-primary transition-colors">
+                      {location.name}
+                    </span>
+                    <ArrowRight class="w-4 h-4 text-primary opacity-0 group-hover:opacity-100 transition-opacity" />
+                  </a>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </section>
 

@@ -64,10 +64,18 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Locations Index -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/locations</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Glasgow Location Page -->
   <url>
     <loc>https://clydedeckingsolutionsltd.com/glasgow</loc>
-    <lastmod>2025-11-20</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -75,7 +83,7 @@
   <!-- Edinburgh Location Page -->
   <url>
     <loc>https://clydedeckingsolutionsltd.com/edinburgh</loc>
-    <lastmod>2025-11-20</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
@@ -83,9 +91,385 @@
   <!-- Stirling Location Page -->
   <url>
     <loc>https://clydedeckingsolutionsltd.com/stirling</loc>
-    <lastmod>2025-11-20</lastmod>
+    <lastmod>2026-09-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+  </url>
+
+  <!-- Paisley Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/paisley</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Hamilton Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/hamilton</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Falkirk Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/falkirk</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Livingston Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/livingston</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Ayr Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/ayr</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Kilmarnock Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/kilmarnock</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Cumbernauld Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/cumbernauld</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- East Kilbride Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/east-kilbride</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Motherwell Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/motherwell</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Coatbridge Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/coatbridge</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Airdrie Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/airdrie</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Wishaw Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/wishaw</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Bellshill Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/bellshill</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Rutherglen Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/rutherglen</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Cambuslang Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/cambuslang</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Clydebank Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/clydebank</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Dumbarton Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/dumbarton</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Alexandria Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/alexandria</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Bearsden Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/bearsden</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Milngavie Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/milngavie</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Bishopbriggs Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/bishopbriggs</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Kirkintilloch Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/kirkintilloch</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Newton Mearns Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/newton-mearns</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Giffnock Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/giffnock</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Clarkston Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/clarkston</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Barrhead Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/barrhead</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Renfrew Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/renfrew</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Erskine Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/erskine</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Johnstone Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/johnstone</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Bishopton Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/bishopton</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Greenock Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/greenock</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Port Glasgow Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/port-glasgow</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Gourock Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/gourock</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Bathgate Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/bathgate</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Broxburn Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/broxburn</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Linlithgow Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/linlithgow</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Whitburn Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/whitburn</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Bo'ness Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/bo-ness</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Grangemouth Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/grangemouth</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Denny Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/denny</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Dunfermline Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/dunfermline</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Kirkcaldy Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/kirkcaldy</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Glenrothes Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/glenrothes</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Irvine Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/irvine</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Troon Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/troon</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Prestwick Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/prestwick</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+  <!-- Larkhall Location Page -->
+  <url>
+    <loc>https://clydedeckingsolutionsltd.com/larkhall</loc>
+    <lastmod>2026-09-01</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
 
 </urlset>
